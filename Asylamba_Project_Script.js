@@ -187,7 +187,7 @@ function initAsylamba_Project_Script(){
     //$("viewFlotte1").style.width = w-30-900-100+ "px";
     //$("viewFlotte2").style.width = w-30-900-100+ "px";
     $("viewFlotte2").style.top = parseInt($("viewFlotte1").style.top) + parseInt($("viewFlotte1").style.height)+300+"px";
-    $("viewSapceShipEsca").style.left = "300px";
+    $("viewSapceShipEsca").style.left = "320px";
     $("viewSapceShipEsca").style.top = "190px";
     $("b1").style.left = "500px";
     $("b1").style.top = "200px";
@@ -455,10 +455,11 @@ function tableFlotteClick(flotteId,ligneNb,escadrilleNb) {
 function tableSpaceShipClick(spaceShipTypePos,ev){
     
     var numberOfAdding = 1;
+    var booHasEnoughtSpace = true
     if (ev.shiftKey) {
         numberOfAdding = 10;
     }
-    for (var p = 0; p< numberOfAdding;++p){
+    for (var p = 0; p< numberOfAdding && booHasEnoughtSpace;++p){
         if (selectedFlotte==0) {
             if (selectedLigne != -1 && selectedEsc != -1) {
                 if (defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].maxPEV >= defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev + spaceShipType[spaceShipTypePos].pev) {
@@ -469,6 +470,7 @@ function tableSpaceShipClick(spaceShipTypePos,ev){
                 }
                 else{
                     alert("plus assez de place");
+                    booHasEnoughtSpace = false;
                 }
             }
         }
