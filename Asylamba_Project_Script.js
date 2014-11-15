@@ -202,7 +202,7 @@ function initAsylamba_Project_Script(){
     $("i1").style.left  = "10px";
     
     $("generalInfos").style.top = "20px"
-    $("generalInfos").innerHTML = "<p style = 'font-size:  20px;' >Simulateur de combat pour Asylamba. <br>Version "+version+"</p> Avertissement : les donn&eacute;e fournies par le simulateur ne sont pas garanties &ecirc;tre juste ni &agrave; jour."
+    $("generalInfos").innerHTML = "<p style = 'font-size:  20px;' >Simulateur de combat pour Asylamba. <br>Version "+version+"  <b>FIABILITE EN COUR DE VERIFICATION EN ATTENDANT NE PAS SE FIER. </b> </p> Avertissement : les donn&eacute;e fournies par le simulateur ne sont pas garanties &ecirc;tre juste ni &agrave; jour."
 }
 
 
@@ -322,7 +322,7 @@ function drawSpaceShipTable(){
     arrayToDraw.push(["<input style='width : 93px;' id='newShipInput1'>","<input style='width : 200px;' id='newShipInput2'>","<input style='width : 93px;' id='newShipInput3'input style='width : 93px;'>","<input style='width : 93px;' id='newShipInput4'>","<input style='width : 93px;' id='newShipInput5'> ","<input style='width : 93px;' id='newShipInput6'> "]);
     styleArray.push(["width : 100px;"]);
     
-    $("spaceShipTable").innerHTML = "<p>Cliquez sur une des lignes pour ajouter le vaisseau. Cliquez sur le tabeau &agrave; droite du tabelau de flotte pour supprimer un vaisseau.<\p>";
+    $("spaceShipTable").innerHTML = "<p>Cliquez sur une des lignes pour ajouter le vaisseau (shift/maj ajouter 10 vaisseaux). Cliquez sur le tabeau &agrave; droite du tabelau de flotte pour supprimer un vaisseau.<\p>";
     $("spaceShipTable").innerHTML += displayTable(arrayToDraw,styleArray);
 }
 
