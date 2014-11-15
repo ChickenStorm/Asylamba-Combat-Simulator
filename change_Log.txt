@@ -35,4 +35,4 @@ ajout d'un esca par ligne
 version 0.0.8.1
 
 ajout de plus d'escadrille
-modification dans la minipre dont marche les simulation
+modification dans l'execution des simulations
