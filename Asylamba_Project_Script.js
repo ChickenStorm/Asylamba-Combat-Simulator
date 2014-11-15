@@ -50,7 +50,7 @@ var attackerFlotte;
 
 
 
-var version = "0.0.7"
+var version = "0.0.8"
 function SpaceShipType (name,cannon,defense,speed,hull,pev){
     this.name = name;
     this.cannon = cannon;
