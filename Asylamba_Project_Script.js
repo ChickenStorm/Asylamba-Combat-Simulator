@@ -187,14 +187,14 @@ function initAsylamba_Project_Script(){
     //$("viewFlotte1").style.width = w-30-900-100+ "px";
     //$("viewFlotte2").style.width = w-30-900-100+ "px";
     $("viewFlotte2").style.top = parseInt($("viewFlotte1").style.top) + parseInt($("viewFlotte1").style.height)+300+"px";
-    $("viewSapceShipEsca").style.left = "620px";
-    $("viewSapceShipEsca").style.top = "250px";
+    $("viewSapceShipEsca").style.left = "350px";
+    $("viewSapceShipEsca").style.top = "20px";
     $("b1").style.left = "750px";
     $("b1").style.top = "200px";
     
     $("resultGeneral").style.left = "600px";
     $("resultGeneral").style.top = "250px";
-    $("resultGeneral").style.width = "600px"
+    //$("resultGeneral").style.width = "600px"
     
     $("di1").style.top  = "150px";
     $("di1").style.left  = "750px";
@@ -322,7 +322,7 @@ function drawSpaceShipTable(){
     arrayToDraw.push(["<input style='width : 93px;' id='newShipInput1'>","<input style='width : 200px;' id='newShipInput2'>","<input style='width : 93px;' id='newShipInput3'input style='width : 93px;'>","<input style='width : 93px;' id='newShipInput4'>","<input style='width : 93px;' id='newShipInput5'> ","<input style='width : 93px;' id='newShipInput6'> "]);
     styleArray.push(["width : 100px;"]);
     
-    $("spaceShipTable").innerHTML = "<p>Cliquez sur une des lignes pour ajouter le vaisseau (shift/maj ajouter 10 vaisseaux). Cliquez sur le tabeau &agrave; droite du tabelau de flotte pour supprimer un vaisseau.<\p>";
+    $("spaceShipTable").innerHTML = "<p>Cliquez sur une des lignes pour ajouter le vaisseau (shift/maj ajouter 10 vaisseaux). Cliquez sur le tabeau au dessu du tabelau de flotte pour supprimer un vaisseau.<\p>";
     $("spaceShipTable").innerHTML += displayTable(arrayToDraw,styleArray);
 }
 
