@@ -50,7 +50,7 @@ var attackerFlotte;
 
 
 
-var version = "0.0.8"
+var version = "0.0.8.1"
 function SpaceShipType (name,cannon,defense,speed,hull,pev){
     this.name = name;
     this.cannon = cannon;
@@ -130,7 +130,7 @@ function initFlotte(){
     for (var i = 0; i<5;++i){
         //ligneArray.push([])
         
-        for (var j =0;j< 4 ;++j){
+        for (var j =0;j< 9 ;++j){
             
             tempEsqArray.push(new Escadrille(0,i,j));
         }
@@ -148,7 +148,7 @@ function initFlotte(){
     for (var i = 0; i<5;++i){
         //ligneArray.push([])
         
-        for (var j =0;j< 4 ;++j){
+        for (var j =0;j< 9 ;++j){
             
             tempEsqArray.push(new Escadrille(1,i,j));
         }
@@ -180,29 +180,29 @@ function initAsylamba_Project_Script(){
     
     var w = 1920;
     
-    $("spaceShipTable").style.left = w-30-800+ "px";
+    $("spaceShipTable").style.left = w-30-750+ "px";
     $("spaceShipTable").style.top = "120px"
     $("viewFlotte1").style.top = "150px";
     $("viewFlotte1").style.height = "100px";
     //$("viewFlotte1").style.width = w-30-900-100+ "px";
     //$("viewFlotte2").style.width = w-30-900-100+ "px";
     $("viewFlotte2").style.top = parseInt($("viewFlotte1").style.top) + parseInt($("viewFlotte1").style.height)+300+"px";
-    $("viewSapceShipEsca").style.left = "320px";
-    $("viewSapceShipEsca").style.top = "190px";
-    $("b1").style.left = "500px";
+    $("viewSapceShipEsca").style.left = "620px";
+    $("viewSapceShipEsca").style.top = "250px";
+    $("b1").style.left = "750px";
     $("b1").style.top = "200px";
     
-    $("resultGeneral").style.left = "450px";
+    $("resultGeneral").style.left = "600px";
     $("resultGeneral").style.top = "250px";
     $("resultGeneral").style.width = "600px"
     
     $("di1").style.top  = "150px";
-    $("di1").style.left  = "500px";
+    $("di1").style.left  = "750px";
     $("i1").defaultValue = 1000
     $("i1").style.left  = "10px";
     
     $("generalInfos").style.top = "20px"
-    $("generalInfos").innerHTML = "<p style = 'font-size:  20px;' >Simulateur de combat pour Asylamba. <br>Version "+version+"  <b>FIABILITE EN COUR DE VERIFICATION EN ATTENDANT NE PAS SE FIER. </b> </p> Avertissement : les donn&eacute;e fournies par le simulateur ne sont pas garanties &ecirc;tre juste ni &agrave; jour."
+    $("generalInfos").innerHTML = "<p style = 'font-size:  20px;' >Simulateur de combat pour Asylamba. <br>Version "+version+"  <b style='color: red'>FIABILITE EN COUR DE VERIFICATION EN ATTENDANT NE PAS SE FIER. </b> </p> Avertissement : les donn&eacute;e fournies par le simulateur ne sont pas garanties &ecirc;tre juste ni &agrave; jour."
 }
 
 

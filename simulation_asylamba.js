@@ -148,7 +148,7 @@ function simulation(flotte1,flotte2){
                     flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis = getEscToAttack(flotte2,Math.ceil(simulationLoop/3));
                 }
                 if (flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis != null) {
-                    escaAttack(flotte1.ligneArray[i].escadrilleArray[j],flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis,flotte2.tech);
+                    escaAttack(flotte1.ligneArray[i].escadrilleArray[j],flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis,flotte2.tech,flotte1.tech);
                 }
                
                 
@@ -167,7 +167,7 @@ function simulation(flotte1,flotte2){
                         flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis = getEscToAttack(flotte1,Math.ceil(simulationLoop/3));
                     }
                     if (flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis != null) {
-                        escaAttack(flotte2.ligneArray[i].escadrilleArray[j],flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis,flotte1.tech);
+                        escaAttack(flotte2.ligneArray[i].escadrilleArray[j],flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis,flotte1.tech,flotte2.tech);
                     }
                    
                     
@@ -195,7 +195,7 @@ function simulation(flotte1,flotte2){
     
 }
 
-function escaAttack(e1,e2,tech){
+function escaAttack(e1,e2,tech,tech2){
     
     var randomSpaceShipId
     
@@ -227,7 +227,7 @@ function escaAttack(e1,e2,tech){
         //spaceShipAttack(e1.spaceShipArray[i],e2.spaceShipArray[randomSpaceShipId]);
     }
     
-    /**for (var i in e2.spaceShipArray) {
+    for (var i in e2.spaceShipArray) {
         
         if (e1.pev != 0 && e2.pev !=0) {
             //spaceShipAttack(e2.spaceShipArray[i],e1.spaceShipArray[randomSpaceShipId]);
@@ -239,7 +239,7 @@ function escaAttack(e1,e2,tech){
                         
                         randomSpaceShipId = Math.floor(Math.random()*e1.spaceShipArray.length);
                         
-                        spaceShipAttack(e2.spaceShipArray[i],j,e1.spaceShipArray[randomSpaceShipId],tech);
+                        spaceShipAttack(e2.spaceShipArray[i],j,e1.spaceShipArray[randomSpaceShipId],tech2);
                         
                         if (e1.spaceShipArray[randomSpaceShipId].hull <= 0) {
                             removeSpaceShip(e1,randomSpaceShipId);
@@ -249,7 +249,7 @@ function escaAttack(e1,e2,tech){
             }
         }
         
-    }*/
+    }
     
     e2.cibledEscEnemis = e1
 }

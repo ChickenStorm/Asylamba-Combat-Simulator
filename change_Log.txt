@@ -31,3 +31,8 @@ possibilité de fair *10 vaisseau avec shift
 correction de la manière dont se déroule le combat.
 clear une esca avec le boutton clear
 ajout d'un esca par ligne
+
+version 0.0.8.1
+
+ajout de plus d'escadrille
+modification dans la minipre dont marche les simulation
