@@ -344,21 +344,21 @@ function addNewType(){
                 throw "le type ne peut pas porter un nom deja existant";
             }
         }
-        /*
-        if (isNaN(input3)) {
+        
+        if (isNaN(input3) || input3<=0) {
             throw "mauvaise entee un nombre est attendu";
         }
         
-        if (isNaN(input4)) {
+        if (isNaN(input4) || input4<=0) {
             throw "mauvaise entee un nombre est attendu";
         }
-        if (isNaN(input5)) {
+        if (isNaN(input5) || input5<=0) {
             throw "mauvaise entee un nombre est attendu";
         }
-        if (isNaN(input6)) {
+        if (isNaN(input6) || input6<=0) {
             throw "mauvaise entee un nombre est attendu";
         }
-        */
+        
         
         input2 = input2.replace(" ","");
         //alert(input2);
@@ -380,7 +380,7 @@ function addNewType(){
             else{
                 for (var j in tableTemp[i]){
                     tableTemp2[i][j] = parseInt(tableTemp2[i][j]);
-                    if (isNaN(tableTemp2[i][j]) && tableTemp2[i][j]<=0) {
+                    if (isNaN(tableTemp2[i][j]) || tableTemp2[i][j]<=0) {
                         throw "mauvaise entree pour l'attaque";
                     }
                     
