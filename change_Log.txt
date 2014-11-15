@@ -1,0 +1,25 @@
+Version 0.0.1
+
+ajout du numéro de la version
+
+version 0.0.2
+
+demande de coder dans iso-8859-1 (ce qui n'a pas l'aire de chabger les accent sur drop box => téléchargement du lanceur online pour correction)
+
+version 0.0.3
+
+correction des titre sur les flottes
+
+version 0.0.4 
+
+option de voir plus de détaille (nombre moyen de  vaisseau réstant  à la fin);
+
+version 0.0.5 
+
+correction orthographique
+
+version 0.0.6
+
+correction des accents. Ajout des bonus Technologique. ajout de l'avertissement. modification de certains textes.
+
+corrections diverses
