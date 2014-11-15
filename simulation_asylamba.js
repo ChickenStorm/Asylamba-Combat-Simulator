@@ -227,7 +227,7 @@ function escaAttack(e1,e2,tech){
         //spaceShipAttack(e1.spaceShipArray[i],e2.spaceShipArray[randomSpaceShipId]);
     }
     
-    for (var i in e2.spaceShipArray) {
+    /**for (var i in e2.spaceShipArray) {
         
         if (e1.pev != 0 && e2.pev !=0) {
             //spaceShipAttack(e2.spaceShipArray[i],e1.spaceShipArray[randomSpaceShipId]);
@@ -249,7 +249,7 @@ function escaAttack(e1,e2,tech){
             }
         }
         
-    }
+    }*/
     
     e2.cibledEscEnemis = e1
 }

@@ -130,7 +130,7 @@ function initFlotte(){
     for (var i = 0; i<5;++i){
         //ligneArray.push([])
         
-        for (var j =0;j< 3 ;++j){
+        for (var j =0;j< 4 ;++j){
             
             tempEsqArray.push(new Escadrille(0,i,j));
         }
@@ -148,7 +148,7 @@ function initFlotte(){
     for (var i = 0; i<5;++i){
         //ligneArray.push([])
         
-        for (var j =0;j< 3 ;++j){
+        for (var j =0;j< 4 ;++j){
             
             tempEsqArray.push(new Escadrille(1,i,j));
         }
@@ -290,11 +290,11 @@ function drawSpaceShipTable(){
         ++j;
         for (var l=0; l<6;l++){
             
-            styleArray[j].push("width : 100px;text-align: center;' onclick ='tableSpaceShipClick(" +i+""  + ")");
+            styleArray[j].push("width : 100px;text-align: center;' onclick ='tableSpaceShipClick(" +i+""  + ",event)");
             
         }
         //alert(spaceShipType[i].name)
-        styleArray[j][1] = "width : 210px;text-align: center;' onclick ='tableSpaceShipClick(" +i+""  + ")";
+        styleArray[j][1] = "width : 210px;text-align: center;' onclick ='tableSpaceShipClick(" +i+""  + ", event)";
         //styleArray[j].push("width : 100px;text-align: center;","width : 210px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;");
         
         
@@ -329,13 +329,13 @@ function drawSpaceShipTable(){
 function addNewType(){
     try {
         
-        var input1 = ""
+        var input2 = "";
         var input1 = $("newShipInput1").value;
         var input2 = $("newShipInput2").value;
-        var input3 = $("newShipInput3").value;
-        var input4 = $("newShipInput4").value;
-        var input5 = $("newShipInput5").value;
-        var input6 = $("newShipInput6").value;
+        var input3 = parseInt($("newShipInput3").value);
+        var input4 = parseInt($("newShipInput4").value);
+        var input5 = parseInt($("newShipInput5").value);
+        var input6 = parseInt($("newShipInput6").value);
         var j =0;
         
         
@@ -344,6 +344,61 @@ function addNewType(){
                 throw "le type ne peut pas porter un nom deja existant";
             }
         }
+        /*
+        if (isNaN(input3)) {
+            throw "mauvaise entee un nombre est attendu";
+        }
+        
+        if (isNaN(input4)) {
+            throw "mauvaise entee un nombre est attendu";
+        }
+        if (isNaN(input5)) {
+            throw "mauvaise entee un nombre est attendu";
+        }
+        if (isNaN(input6)) {
+            throw "mauvaise entee un nombre est attendu";
+        }
+        */
+        
+        input2 = input2.replace(" ","");
+        //alert(input2);
+        var tableTemp = input2.split('+');
+        var tableTemp2 =[];
+        var attakArray = [];
+        var numberArray = [];
+        
+        for (var i=0;i< tableTemp.length ;++i){
+            tableTemp2.push(tableTemp[i].split('*'))
+            if (tableTemp2[i].length == 1) {
+                
+                tableTemp2[i].push(1);
+            }
+            if (tableTemp2[i].length != 2){
+                throw "mauvaise entree pour l'attaque";
+                
+            }
+            else{
+                for (var j in tableTemp[i]){
+                    tableTemp2[i][j] = parseInt(tableTemp2[i][j]);
+                    if (isNaN(tableTemp2[i][j]) && tableTemp2[i][j]<=0) {
+                        throw "mauvaise entree pour l'attaque";
+                    }
+                    
+                    
+                }
+                attakArray.push(tableTemp2[i][0]);
+                numberArray.push(tableTemp2[i][1]);
+            }
+            
+            
+            
+            
+            
+            
+        }
+        
+        spaceShipType.push(new SpaceShipType(input1,new Cannon(attakArray,numberArray),input3,input4,input5,input6));
+        drawInterface();
         
         
     } catch(e) {
@@ -397,32 +452,38 @@ function tableFlotteClick(flotteId,ligneNb,escadrilleNb) {
     
 }
 
-function tableSpaceShipClick(spaceShipTypePos){
+function tableSpaceShipClick(spaceShipTypePos,ev){
     
-    if (selectedFlotte==0) {
-        if (selectedLigne != -1 && selectedEsc != -1) {
-            if (defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].maxPEV >= defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev + spaceShipType[spaceShipTypePos].pev) {
-                
-                
-                defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].spaceShipArray.push(new SpaceShip(spaceShipType[spaceShipTypePos]));
-                defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev += spaceShipType[spaceShipTypePos].pev;
-            }
-            else{
-                alert("plus assez de place");
+    var numberOfAdding = 1;
+    if (ev.shiftKey) {
+        numberOfAdding = 10;
+    }
+    for (var p = 0; p< numberOfAdding;++p){
+        if (selectedFlotte==0) {
+            if (selectedLigne != -1 && selectedEsc != -1) {
+                if (defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].maxPEV >= defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev + spaceShipType[spaceShipTypePos].pev) {
+                    
+                    
+                    defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].spaceShipArray.push(new SpaceShip(spaceShipType[spaceShipTypePos]));
+                    defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev += spaceShipType[spaceShipTypePos].pev;
+                }
+                else{
+                    alert("plus assez de place");
+                }
             }
         }
-    }
-    if (selectedFlotte==1) {
-        if (selectedLigne != -1 && selectedEsc != -1) {
-            if (attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].maxPEV >= attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev + spaceShipType[spaceShipTypePos].pev) {
-                
-                
-                attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].spaceShipArray.push(new SpaceShip(spaceShipType[spaceShipTypePos]));
-                attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev += spaceShipType[spaceShipTypePos].pev;
-                
-            }
-            else{
-                alert("plus assez de place");
+        if (selectedFlotte==1) {
+            if (selectedLigne != -1 && selectedEsc != -1) {
+                if (attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].maxPEV >= attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev + spaceShipType[spaceShipTypePos].pev) {
+                    
+                    
+                    attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].spaceShipArray.push(new SpaceShip(spaceShipType[spaceShipTypePos]));
+                    attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev += spaceShipType[spaceShipTypePos].pev;
+                    
+                }
+                else{
+                    alert("plus assez de place");
+                }
             }
         }
     }
@@ -431,8 +492,8 @@ function tableSpaceShipClick(spaceShipTypePos){
 
 function drawEscaView() {
     
-    arraySpaceShipNumber = [];
-    styleArray = [];
+    arraySpaceShipNumber = [["<button onclick = 'flotteArray[selectedFlotte].ligneArray[selectedLigne].escadrilleArray[selectedEsc].spaceShipArray = []; flotteArray[selectedFlotte].ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev=0; drawInterface();' > clear </button>"]];
+    styleArray = [[""]];
     
     if (selectedFlotte!= -1) {
         
@@ -512,7 +573,7 @@ function copie(flotte,id) {
     for (var i = 0; i<5;++i){
         //ligneArray.push([])
         
-        for (var j =0;j< 3 ;++j){
+        for (var j =0;j< flotte.ligneArray[i].escadrilleArray.length ;++j){ // recently modifed
             var esquaTemp = new Escadrille(id,i,j);
            
             
