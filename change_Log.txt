@@ -47,3 +47,4 @@ les bonus de tech sont encore à faire plus en détailles
 0.0.9 
 
 suppression du pre 0.0.9
+correction d'un bug sur les vaisseaux multi-tourelles
