@@ -36,3 +36,10 @@ version 0.0.8.1
 
 ajout de plus d'escadrille
 modification dans l'execution des simulations
+
+version pre 0.0.9 
+
+correction des sims (une attaque en 20*4 cible 4 fois le même vaisseau )
+correction du message qui revien trop soivent lors de l'aout de 10 vaisseaux à la flotte 2
+
+les bonus de tech sont encore à faire plus en détailles

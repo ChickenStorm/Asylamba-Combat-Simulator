@@ -33,7 +33,7 @@
 */
 
 
-function SimulationResult(winFlotte1,winFlotte2,simulationLoop,flotte1,flotte2) {
+function SimulationResult(winFlotte1,winFlotte2,simulationLoop,flotte1,flotte2) { // object SimulationResult
     this.winFlotte1 = winFlotte1;
     this.winFlotte2 = winFlotte2;
     this.simulationLoop = simulationLoop;
@@ -44,7 +44,7 @@ function SimulationResult(winFlotte1,winFlotte2,simulationLoop,flotte1,flotte2) 
 }
 var simulationArrayResult = []
 var numberOfSimulation=0;
-function runSimulation(){
+function runSimulation(){ // this is the main function
     
     //escaAttack(attackerFlotte.ligneArray[0].escadrilleArray[0],defenderFlotte.ligneArray[0].escadrilleArray[0]);
     
@@ -57,10 +57,10 @@ function runSimulation(){
     var totalSimulationLoop = 0;
 
     
-    simulationArrayResult=[];
+    simulationArrayResult=[]; // reset the array
     //alert(getReachingValue(195,0.9))
     try{
-        var valueI1 = parseInt($("i1").value)
+        var valueI1 = parseInt($("i1").value) // c'est le nombre d'itération
         
         
         
@@ -74,13 +74,13 @@ function runSimulation(){
         setTechValue();
         
         for (var m = 0; m<numberOfSimulation ; ++m) {
-            var tempResult = simulation(copie(defenderFlotte,2),copie(attackerFlotte,3));
+            var tempResult = simulation(copie(defenderFlotte,2),copie(attackerFlotte,3)); // I need to copie becaus it passsed by ref and I don't want to influance the input of the user.
             
             
             
             simulationArrayResult.push(tempResult);
-            
-            if (tempResult.winFlotte1 && tempResult.winFlotte2) {
+            // add to quick stat
+            if (tempResult.winFlotte1 && tempResult.winFlotte2) { 
                ++winingFlotte1AndFlotte2;
             }
             else if (tempResult.winFlotte1) {
@@ -100,7 +100,7 @@ function runSimulation(){
        
        //drawResult(simulationArrayResult);
        var tempArray = []
-       var tempStyleArray = []
+       var tempStyleArray = [] // i should creat a function for this part
         tempArray.push(["nombre de simulations","seul flotte attaquante victorieuse","seul flotte en defense victorieuse","exaequo (les deux sont d&eacute;truites)","nombre moyen de tour"]);
         tempStyleArray.push(["width:100px","width:100px","width:100px","width:100px","width:100px"]);
         tempArray.push([numberOfSimulation,winingOnlyFlotte2 + " ( "+ winingOnlyFlotte2/ numberOfSimulation+" )",winingOnlyFlotte1 + " ("+ winingOnlyFlotte1/ numberOfSimulation+" )",loosingFlotte1AndFlotte2 +" ( "+ loosingFlotte1AndFlotte2/numberOfSimulation +" )",totalSimulationLoop/numberOfSimulation])
@@ -124,7 +124,7 @@ function runSimulation(){
     
 }
 
-function simulation(flotte1,flotte2){
+function simulation(flotte1,flotte2){ // run an iteration of the simualtion.
     var id1 = flotte1.id;
     var id2 = flotte2.id ;
     var simulationLoop = 0;
@@ -139,16 +139,19 @@ function simulation(flotte1,flotte2){
         
         
         
-        for (var i =0 ; i< flotte1.ligneArray.length &&  i < simulationLoop/3; ++i ) {
+        for (var i =0 ; i< flotte1.ligneArray.length &&  i < simulationLoop/3; ++i ) { // the simulationLoop/3 repesent the max lign in the combat
             
-            for(var j =0 ; j< flotte1.ligneArray[i].escadrilleArray.length;++j){
-                
-                if (flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis == null || flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis.pev ==0 ) {
+            for(var j =0 ; j< flotte1.ligneArray[i].escadrilleArray.length;++j){ // for each escadrille in flotte1
+                if ( flotte1.ligneArray[i].escadrilleArray[j].pev!=0) { // rencently added optimisation 
+                   
                     
-                    flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis = getEscToAttack(flotte2,Math.ceil(simulationLoop/3));
-                }
-                if (flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis != null) {
-                    escaAttack(flotte1.ligneArray[i].escadrilleArray[j],flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis,flotte2.tech,flotte1.tech);
+                    if (flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis == null || flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis.pev ==0 ) { // does it need to take a new cible
+                        
+                        flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis = getEscToAttack(flotte2,Math.ceil(simulationLoop/3)); 
+                    }
+                    if (flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis != null && flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis.pev !=0 ) {
+                        escaAttack(flotte1.ligneArray[i].escadrilleArray[j],flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis,flotte2.tech,flotte1.tech);
+                    }
                 }
                
                 
@@ -159,15 +162,19 @@ function simulation(flotte1,flotte2){
         
         
         if (!isFlotteDestroyed(flotte1) && !isFlotteDestroyed(flotte2)) {
-            for (var i =0 ; i< flotte2.ligneArray.length &&  i < simulationLoop/3; ++i ) {
+            for (var i =0 ; i< flotte2.ligneArray.length &&  i < simulationLoop/3; ++i ) { // same as the pervious part
                 for(var j =0 ; j< flotte2.ligneArray[i].escadrilleArray.length;++j){
                     
-                    if (flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis == null || flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis.pev ==0 ) {
+                    if ( flotte2.ligneArray[i].escadrilleArray[j].pev!=0) {
                         
-                        flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis = getEscToAttack(flotte1,Math.ceil(simulationLoop/3));
-                    }
-                    if (flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis != null) {
-                        escaAttack(flotte2.ligneArray[i].escadrilleArray[j],flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis,flotte1.tech,flotte2.tech);
+                        
+                        if (flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis == null || flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis.pev ==0 ) {
+                            
+                            flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis = getEscToAttack(flotte1,Math.ceil(simulationLoop/3));
+                        }
+                        if (flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis != null && flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis.pev !=0 ) {
+                            escaAttack(flotte2.ligneArray[i].escadrilleArray[j],flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis,flotte1.tech,flotte2.tech);
+                        }
                     }
                    
                     
@@ -195,79 +202,94 @@ function simulation(flotte1,flotte2){
     
 }
 
-function escaAttack(e1,e2,tech,tech2){
+function escaAttack(e1,e2,tech,tech2){ // e1 attack e2 
     
-    var randomSpaceShipId
-    
+    var randomSpaceShipId;
+    /*debugShowHull(e1)
+    debugShowHull(e2)*/
     for (var i in e1.spaceShipArray) {
         
         
         if (e1.pev != 0 && e2.pev !=0) {
            
-            for (var j=0; j < e1.spaceShipArray[i].type.cannon.attack.length;++j){
+            for (var j=0; j < e1.spaceShipArray[i].type.cannon.attack.length;++j){// for each spaceShip and for each cannon
+                // this was here where my porbleme was
+                randomSpaceShipId = Math.floor(Math.random()*e2.spaceShipArray.length); // take a random schip // recently moved  
                 
-                for (var k=0; k < e1.spaceShipArray[i].type.cannon.number[j];++k){
+                for (var k=0; k < e1.spaceShipArray[i].type.cannon.number[j];++k){ //repeat for each apparition of the cannon
                     if (e2.pev!=0) {
                         
                         
-                        randomSpaceShipId = Math.floor(Math.random()*e2.spaceShipArray.length);
                         
-                        spaceShipAttack(e1.spaceShipArray[i],j,e2.spaceShipArray[randomSpaceShipId],tech);
                         
-                        if (e2.spaceShipArray[randomSpaceShipId].hull <= 0) {
-                            removeSpaceShip(e2,randomSpaceShipId);
-                            
-                        }
+                        spaceShipAttack(e1.spaceShipArray[i],j,e2.spaceShipArray[randomSpaceShipId],tech); 
+                        
+                        
                     }
                     
+                    
+                }
+                
+                if (e2.spaceShipArray[randomSpaceShipId].hull <= 0) { // remove if the ship is destroy
+                    removeSpaceShip(e2,randomSpaceShipId); 
                     
                 }
             }
         }
         //spaceShipAttack(e1.spaceShipArray[i],e2.spaceShipArray[randomSpaceShipId]);
     }
-    
-    for (var i in e2.spaceShipArray) {
+    /*
+    for (var i in e2.spaceShipArray) { // same as the pervious part by swaping e1 and e2
         
         if (e1.pev != 0 && e2.pev !=0) {
             //spaceShipAttack(e2.spaceShipArray[i],e1.spaceShipArray[randomSpaceShipId]);
             for (var j=0; j < e2.spaceShipArray[i].type.cannon.attack.length;++j){
                 
+                randomSpaceShipId = Math.floor(Math.random()*e1.spaceShipArray.length);
+                
                 for (var k=0; k < e2.spaceShipArray[i].type.cannon.number[j];++k){
                     if (e1.pev!=0) {
                         
                         
-                        randomSpaceShipId = Math.floor(Math.random()*e1.spaceShipArray.length);
+                        
                         
                         spaceShipAttack(e2.spaceShipArray[i],j,e1.spaceShipArray[randomSpaceShipId],tech2);
                         
-                        if (e1.spaceShipArray[randomSpaceShipId].hull <= 0) {
-                            removeSpaceShip(e1,randomSpaceShipId);
-                        }
+                        
                     }
+                    
+                }
+                
+                if (e1.spaceShipArray[randomSpaceShipId].hull <= 0) {
+                    removeSpaceShip(e1,randomSpaceShipId);
                 }
             }
         }
         
     }
-    
-    e2.cibledEscEnemis = e1
+    */
+    e2.cibledEscEnemis = e1;
 }
 
-function getDamage(attack,def){
+function getDamage(attack,def){ // get the damage
     
     return Math.log(attack/def+1)*4*attack;
 }
 
-function getReachingValue(speed,tech){
+function getReachingValue(speed,tech){ // get the chance to reach
     
     return 1-Math.max(0,1-80/(speed*(1+tech)));
 }
 
-function spaceShipAttack(spaceShip1,cannonPos,spaceShip2,tech){
+
+
+function spaceShipAttack(spaceShip1,cannonPos,spaceShip2,tech){ // spaceShip1 attack spaceShip2 with the cannon at the position cannonPos
     
     var randomNumber = Math.random();
-    if (randomNumber < getReachingValue(spaceShip1.type.speed,tech)) {
+    
+    //it might have a error herre // in fact ther isn't
+    
+    if (randomNumber < getReachingValue(spaceShip1.type.speed,tech)) {// this should be false but for testing : BUG TODO verfifier the  comparaison is <
         
         spaceShip2.hull -= getDamage(spaceShip1.type.cannon.attack[cannonPos],spaceShip2.type.defense);
         
@@ -275,9 +297,10 @@ function spaceShipAttack(spaceShip1,cannonPos,spaceShip2,tech){
     
     
     
+    
 }
 
-function isFlotteDestroyed(flotte){
+function isFlotteDestroyed(flotte){ // détermine s'il y a encore des vaisseaux dans la flotte donnée
    
     
     for (var i in flotte.ligneArray){
@@ -297,7 +320,7 @@ function isFlotteDestroyed(flotte){
     
 }
 
-function getEscToAttack(flotte,maxLine){
+function getEscToAttack(flotte,maxLine){ // donne une escadrille au hassard à attaquer
     var escadrille = null;
     var loopTime = 0;
     if (isFlotteDestroyed(flotte)) {
@@ -312,13 +335,13 @@ function getEscToAttack(flotte,maxLine){
     do {
         ++loopTime;
         
-        if (loopTime >= 1000000) {
+        if (loopTime >= 1000000) {//si la ça loop trop arrette ici
             throw "trop (1'000'000) d'assai sans trouver";
         }
         
-        var randomN1 = Math.floor(Math.min(flotte.ligneArray.length,maxLine) * Math.random()); //ligneArray[i].escadrilleArray
+        var randomN1 = Math.floor(Math.min(flotte.ligneArray.length,maxLine) * Math.random()); //prend un nombre au hasard pour la ligne   //ligneArray[i].escadrilleArray
         
-        var randomN2 =  Math.floor(flotte.ligneArray[randomN1].escadrilleArray.length * Math.random());
+        var randomN2 =  Math.floor(flotte.ligneArray[randomN1].escadrilleArray.length * Math.random());//prend un nombre au hasard pour l'escadrille
         
         escadrille = flotte.ligneArray[randomN1].escadrilleArray[randomN2];
         
@@ -329,7 +352,7 @@ function getEscToAttack(flotte,maxLine){
     
 }
 
-function hasSpaceShipLineLimitation(flotte,maxLine){
+function hasSpaceShipLineLimitation(flotte,maxLine){ // détermine si entre 0 et maxLigne il y a des vaisseaux dans la flotte
     
     for (var i = 0; i< Math.min(flotte.ligneArray.length,maxLine);++i){
         for(var j in flotte.ligneArray[i].escadrilleArray){
@@ -345,7 +368,7 @@ function hasSpaceShipLineLimitation(flotte,maxLine){
     return false;
 }
 
-function drawAdvanceDetail(){
+function drawAdvanceDetail(){//affiche plus de détail de la sim. est exécuter quand l'utilisateur appuis sur "afficher plus de détails"
     //alert("")
     
     var tempArrayFlotte1 = [["Nom","nombre moyen restant"]];
@@ -443,3 +466,12 @@ function drawAdvanceDetail(){
     $("moreDetaileResult").innerHTML ="Flotte en d&eacute;fense <br>"+ displayTable(tempArrayFlotte1,styleArrayFlotte1) + "<br> flotte en attaque <br>"+displayTable(tempArrayFlotte2,styleArrayFlotte2);
 }
 
+
+function debugShowHull( e ){ // debug not used in normal cicumstance
+    var textTemp = '';
+    for (var i in e.spaceShipArray){
+        textTemp += e.spaceShipArray[i].type.name + ":" + e.spaceShipArray[i].hull +" --- "
+        
+    }
+    alert(textTemp + e.pev);
+}

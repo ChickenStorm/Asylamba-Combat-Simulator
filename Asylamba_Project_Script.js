@@ -50,7 +50,7 @@ var attackerFlotte;
 
 
 
-var version = "0.0.8.1"
+var version = "pre 0.0.9"
 function SpaceShipType (name,cannon,defense,speed,hull,pev){
     this.name = name;
     this.cannon = cannon;
@@ -105,7 +105,7 @@ function Flotte(ligneArray,id){
 }
 
 function initSpaceShipType(){
-    
+    //alert(getDamage(20,50))
     spaceShipType.push(new SpaceShipType("P&eacute;gase",new Cannon([5],[1]),2,200,26,2));
     spaceShipType.push(new SpaceShipType("Satyre",new Cannon([6],[1]),5,195,32,3));
     spaceShipType.push(new SpaceShipType("Chim&egrave;re",new Cannon([8],[2]),3,195,26,3));
@@ -119,7 +119,7 @@ function initSpaceShipType(){
     
     spaceShipType.push(new SpaceShipType("Minotaure",new Cannon([50,30],[3,1]),100,88,1000,90));
     spaceShipType.push(new SpaceShipType("Hydre",new Cannon([25],[20]),100,80,1100,90));
-    spaceShipType.push(new SpaceShipType("Cerb&egrave;re",new Cannon([30,80,175],[4,1,1]),120,170,1220,94));
+    spaceShipType.push(new SpaceShipType("Cerb&egrave;re",new Cannon([30,80,175],[4,1,1]),120,70,1220,94));
     spaceShipType.push(new SpaceShipType("Ph&eacute;nix",new Cannon([20,50,80,200],[4,2,2,1]),150,50,1300,96));
     
 }
@@ -202,7 +202,7 @@ function initAsylamba_Project_Script(){
     $("i1").style.left  = "10px";
     
     $("generalInfos").style.top = "20px"
-    $("generalInfos").innerHTML = "<p style = 'font-size:  20px;' >Simulateur de combat pour Asylamba. <br>Version "+version+"  <b style='color: red'>FIABILITE EN COUR DE VERIFICATION EN ATTENDANT NE PAS SE FIER. </b> </p> Avertissement : les donn&eacute;e fournies par le simulateur ne sont pas garanties &ecirc;tre juste ni &agrave; jour."
+    $("generalInfos").innerHTML = "<p style = 'font-size:  20px;' >Simulateur de combat pour Asylamba. <br>Version "+version+"  <!--<b style='color: red'>FIABILITE EN COUR DE VERIFICATION EN ATTENDANT NE PAS SE FIER. </b>  </p>--><p style='color: blak'> Avertissement : les donn&eacute;e fournies par le simulateur ne sont pas garanties &ecirc;tre juste ni &agrave; jour. </p>"
 }
 
 
@@ -213,7 +213,7 @@ function displayTable(arrayToDisapay,arrayStyle) {
         var iS = i;
         tempTextTable = tempTextTable +"<tr>";
         
-        for (j in arrayToDisapay[i]) {
+        for (var j in arrayToDisapay[i]) {
             ///var temp = ""
             
             var jS = j; // because j in in arrayToDisapay[i] and same for i in arrayToDisapay                                                               &eacute; in utf-8
@@ -262,7 +262,10 @@ function drawInterface(){
     
     $("viewFlotte1").innerHTML = "Cliquez sur une casse pour choisir l'escadrille. <br>flotte en d&eacute;fense. <br>Bonus technologique <input id='bonnusF1'> <br>Bonus de Kovahk <input id='hasKBonusF1' type='checkbox'>  <br><br>"+ HTMLCodeFlotte(defenderFlotte);
     
+    //$("viewFlotte2").innerHTML = "flotte en attaque. <br>Bonus technologique <input id = 'bonnusF2'> <br>Bonus de Kovahk <input id='hasKBonusF2' type='checkbox'> <br><br>"+HTMLCodeFlotte(attackerFlotte);
+    
     $("viewFlotte2").innerHTML = "flotte en attaque. <br>Bonus technologique <input id = 'bonnusF2'> <br>Bonus de Kovahk <input id='hasKBonusF2' type='checkbox'> <br><br>"+HTMLCodeFlotte(attackerFlotte);
+
     
     $("hasKBonusF1").checked = tempCheckedValue1;
     $("hasKBonusF2").checked = tempCheckedValue2;
@@ -339,7 +342,7 @@ function addNewType(){
         var j =0;
         
         
-        for (i in spaceShipType){
+        for (var i in spaceShipType){
             if (spaceShipType[i].name == input1) {
                 throw "le type ne peut pas porter un nom deja existant";
             }
@@ -485,6 +488,7 @@ function tableSpaceShipClick(spaceShipTypePos,ev){
                 }
                 else{
                     alert("plus assez de place");
+                    booHasEnoughtSpace = false;
                 }
             }
         }
@@ -563,9 +567,10 @@ function removeOneElementFromPos(array,pos){
 
 function removeSpaceShip(esquadrille,pos){
     var temp = esquadrille.spaceShipArray[pos];
+    esquadrille.pev -= temp.type.pev;
     esquadrille.spaceShipArray = removeOneElementFromPos(esquadrille.spaceShipArray,pos);
     
-    esquadrille.pev -= temp.type.pev;
+    
 }
 
 function copie(flotte,id) {
