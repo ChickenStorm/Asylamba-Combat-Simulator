@@ -214,25 +214,27 @@ function escaAttack(e1,e2,tech,tech2){ // e1 attack e2
            
             for (var j=0; j < e1.spaceShipArray[i].type.cannon.attack.length;++j){// for each spaceShip and for each cannon
                 // this was here where my porbleme was
-                randomSpaceShipId = Math.floor(Math.random()*e2.spaceShipArray.length); // take a random schip // recently moved  
-                
-                for (var k=0; k < e1.spaceShipArray[i].type.cannon.number[j];++k){ //repeat for each apparition of the cannon
-                    if (e2.pev!=0) {
-                        
-                        
-                        
-                        
-                        spaceShipAttack(e1.spaceShipArray[i],j,e2.spaceShipArray[randomSpaceShipId],tech); 
+                if (e2.pev!=0) {
+                    randomSpaceShipId = Math.floor(Math.random()*e2.spaceShipArray.length); // take a random schip // recently moved  
+                    
+                    for (var k=0; k < e1.spaceShipArray[i].type.cannon.number[j];++k){ //repeat for each apparition of the cannon
+                        if (e2.pev!=0) {
+                            
+                            
+                            
+                            
+                            spaceShipAttack(e1.spaceShipArray[i],j,e2.spaceShipArray[randomSpaceShipId],tech); 
+                            
+                            
+                        }
                         
                         
                     }
                     
-                    
-                }
-                
-                if (e2.spaceShipArray[randomSpaceShipId].hull <= 0) { // remove if the ship is destroy
-                    removeSpaceShip(e2,randomSpaceShipId); 
-                    
+                    if (e2.spaceShipArray[randomSpaceShipId].hull <= 0) { // remove if the ship is destroy
+                        removeSpaceShip(e2,randomSpaceShipId); 
+                        
+                    }
                 }
             }
         }
