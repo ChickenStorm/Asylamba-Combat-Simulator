@@ -215,26 +215,35 @@ function escaAttack(e1,e2,tech,tech2){ // e1 attack e2
             for (var j=0; j < e1.spaceShipArray[i].type.cannon.attack.length;++j){// for each spaceShip and for each cannon
                 // this was here where my porbleme was
                 if (e2.pev!=0) {
-                    randomSpaceShipId = Math.floor(Math.random()*e2.spaceShipArray.length); // take a random schip // recently moved  
+                    
+                    
+                    //randomSpaceShipId = Math.floor(Math.random()*e2.spaceShipArray.length); // take a random schip // recently moved
+                    
+                    //alert(e1.spaceShipArray[i].type.cannon.number[j])
+                    
                     
                     for (var k=0; k < e1.spaceShipArray[i].type.cannon.number[j];++k){ //repeat for each apparition of the cannon
                         if (e2.pev!=0) {
                             
-                            
+                            randomSpaceShipId = Math.floor(Math.random()*e2.spaceShipArray.length); 
                             
                             
                             spaceShipAttack(e1.spaceShipArray[i],j,e2.spaceShipArray[randomSpaceShipId],tech); 
                             
+                            if (e2.spaceShipArray[randomSpaceShipId].hull <= 0) { // remove if the ship is destroy
+                                removeSpaceShip(e2,randomSpaceShipId); 
+                                
+                            }
                             
                         }
                         
                         
                     }
-                    
+                    /*
                     if (e2.spaceShipArray[randomSpaceShipId].hull <= 0) { // remove if the ship is destroy
                         removeSpaceShip(e2,randomSpaceShipId); 
                         
-                    }
+                    }*/
                 }
             }
         }
@@ -291,7 +300,7 @@ function spaceShipAttack(spaceShip1,cannonPos,spaceShip2,tech){ // spaceShip1 at
     
     //it might have a error herre // in fact ther isn't
     
-    if (randomNumber < getReachingValue(spaceShip1.type.speed,tech)) {// this should be false but for testing : BUG TODO verfifier the  comparaison is <
+    if (randomNumber < getReachingValue(spaceShip2.type.speed,tech)) {// this should be false but for testing : BUG TODO verfifier the  comparaison is <
         
         spaceShip2.hull -= getDamage(spaceShip1.type.cannon.attack[cannonPos],spaceShip2.type.defense);
         

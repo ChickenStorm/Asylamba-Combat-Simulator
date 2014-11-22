@@ -48,3 +48,6 @@ les bonus de tech sont encore à faire plus en détailles
 
 suppression du pre 0.0.9
 correction d'un bug sur les vaisseaux multi-tourelles
+
+0.0.10
+correctio des combats
