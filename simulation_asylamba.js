@@ -300,7 +300,7 @@ function spaceShipAttack(spaceShip1,cannonPos,spaceShip2,tech){ // spaceShip1 at
     
     //it might have a error herre // in fact ther isn't
     
-    if (randomNumber < getReachingValue(spaceShip2.type.speed,tech)) {// this should be false but for testing : BUG TODO verfifier the  comparaison is <
+    if (randomNumber < getReachingValue(spaceShip2.type.speed,tech)) {// this is here tha was my real error
         
         spaceShip2.hull -= getDamage(spaceShip1.type.cannon.attack[cannonPos],spaceShip2.type.defense);
         

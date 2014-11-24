@@ -51,3 +51,6 @@ correction d'un bug sur les vaisseaux multi-tourelles
 
 0.0.10
 correctio des combats
+
+0.0.10.1
+correction pour entrer de nouveaux vaisseaux

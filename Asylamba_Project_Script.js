@@ -50,7 +50,7 @@ var attackerFlotte;
 
 
 
-var version = "0.0.10"
+var version = "0.0.10.1"
 function SpaceShipType (name,cannon,defense,speed,hull,pev){
     this.name = name;
     this.cannon = cannon;
@@ -377,13 +377,15 @@ function addNewType(){
                 tableTemp2[i].push(1);
             }
             if (tableTemp2[i].length != 2){
+                
                 throw "mauvaise entree pour l'attaque";
                 
             }
             else{
-                for (var j in tableTemp[i]){
+                for (var j in tableTemp2[i]){
                     tableTemp2[i][j] = parseInt(tableTemp2[i][j]);
                     if (isNaN(tableTemp2[i][j]) || tableTemp2[i][j]<=0) {
+                        alert((tableTemp2[i][j]));
                         throw "mauvaise entree pour l'attaque";
                     }
                     
