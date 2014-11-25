@@ -54,3 +54,8 @@ correctio des combats
 
 0.0.10.1
 correction pour entrer de nouveaux vaisseaux
+
+0.0.11
+
+modifiaction des technologies
+ajout du type de vaisseau

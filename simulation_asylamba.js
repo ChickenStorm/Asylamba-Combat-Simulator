@@ -71,8 +71,8 @@ function runSimulation(){ // this is the main function
             numberOfSimulation = valueI1;
         }
         
-        setTechValue();
-        
+        setTech(defenderFlotte);
+        setTech(attackerFlotte);
         for (var m = 0; m<numberOfSimulation ; ++m) {
             var tempResult = simulation(copie(defenderFlotte,2),copie(attackerFlotte,3)); // I need to copie becaus it passsed by ref and I don't want to influance the input of the user.
             
@@ -150,7 +150,7 @@ function simulation(flotte1,flotte2){ // run an iteration of the simualtion.
                         flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis = getEscToAttack(flotte2,Math.ceil(simulationLoop/3)); 
                     }
                     if (flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis != null && flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis.pev !=0 ) {
-                        escaAttack(flotte1.ligneArray[i].escadrilleArray[j],flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis,flotte2.tech,flotte1.tech);
+                        escaAttack(flotte1.ligneArray[i].escadrilleArray[j],flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis,flotte1.tech,flotte2.tech);
                     }
                 }
                
@@ -173,7 +173,7 @@ function simulation(flotte1,flotte2){ // run an iteration of the simualtion.
                             flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis = getEscToAttack(flotte1,Math.ceil(simulationLoop/3));
                         }
                         if (flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis != null && flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis.pev !=0 ) {
-                            escaAttack(flotte2.ligneArray[i].escadrilleArray[j],flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis,flotte1.tech,flotte2.tech);
+                            escaAttack(flotte2.ligneArray[i].escadrilleArray[j],flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis,flotte2.tech,flotte1.tech);
                         }
                     }
                    
@@ -228,7 +228,7 @@ function escaAttack(e1,e2,tech,tech2){ // e1 attack e2
                             randomSpaceShipId = Math.floor(Math.random()*e2.spaceShipArray.length); 
                             
                             
-                            spaceShipAttack(e1.spaceShipArray[i],j,e2.spaceShipArray[randomSpaceShipId],tech); 
+                            spaceShipAttack(e1.spaceShipArray[i],j,e2.spaceShipArray[randomSpaceShipId],tech,tech2); 
                             
                             if (e2.spaceShipArray[randomSpaceShipId].hull <= 0) { // remove if the ship is destroy
                                 removeSpaceShip(e2,randomSpaceShipId); 
@@ -282,9 +282,9 @@ function escaAttack(e1,e2,tech,tech2){ // e1 attack e2
     e2.cibledEscEnemis = e1;
 }
 
-function getDamage(attack,def){ // get the damage
+function getDamage(attack,def,tech,tech2){ // get the damage
     
-    return Math.log(attack/def+1)*4*attack;
+    return Math.log(attack*(1+tech)/def*(1+tech2)+1)*4*attack*(1+tech);
 }
 
 function getReachingValue(speed,tech){ // get the chance to reach
@@ -294,15 +294,15 @@ function getReachingValue(speed,tech){ // get the chance to reach
 
 
 
-function spaceShipAttack(spaceShip1,cannonPos,spaceShip2,tech){ // spaceShip1 attack spaceShip2 with the cannon at the position cannonPos
+function spaceShipAttack(spaceShip1,cannonPos,spaceShip2,tech,tech2){ // spaceShip1 attack spaceShip2 with the cannon at the position cannonPos
     
     var randomNumber = Math.random();
     
     //it might have a error herre // in fact ther isn't
     
-    if (randomNumber < getReachingValue(spaceShip2.type.speed,tech)) {// this is here tha was my real error
+    if (randomNumber < getReachingValue(spaceShip2.type.speed,tech2[spaceShip2.type.typeName]["vitesse"])) {// this is here tha was my real error
         
-        spaceShip2.hull -= getDamage(spaceShip1.type.cannon.attack[cannonPos],spaceShip2.type.defense);
+        spaceShip2.hull -= getDamage(spaceShip1.type.cannon.attack[cannonPos],spaceShip2.type.defense,tech[spaceShip1.type.typeName]["attaque"],tech2[spaceShip2.type.typeName]["defense"]);
         
     }
     

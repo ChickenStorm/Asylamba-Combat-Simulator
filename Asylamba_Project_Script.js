@@ -50,15 +50,18 @@ var attackerFlotte;
 
 
 
-var version = "0.0.10.1"
-function SpaceShipType (name,cannon,defense,speed,hull,pev){
+var version = "pre 0.0.11"
+
+//----------------------------------------------------------------------------------------------
+
+function SpaceShipType (name,cannon,defense,speed,hull,pev,typeName){
     this.name = name;
     this.cannon = cannon;
     this.defense = defense;
     this.speed = speed;
     this.maxHull = hull;
     this.pev = pev;
-    
+    this.typeName = typeName;
     
     
 }
@@ -100,27 +103,45 @@ function Ligne(escadrilleArray){
 function Flotte(ligneArray,id){
     this.ligneArray = ligneArray;
     this.id = id;
-    this.tech = 0;
+    this.tech =  new Tech();
     
+}
+
+
+function Tech(){
+    
+    
+    const LISTE_OF_SHIP = ["Chasseur","Corvette","Fregate","Destroyer","Croiseur"];
+    const LISTE_OF_TECH_TYPE = ["vitesse","attaque","defense"];
+    
+    for(var i in LISTE_OF_SHIP){
+        this[LISTE_OF_SHIP[i]] = []
+        for(var j in LISTE_OF_TECH_TYPE){
+            this[LISTE_OF_SHIP[i]][LISTE_OF_TECH_TYPE[j]] =0;
+            
+        }
+        
+    }
 }
 
 function initSpaceShipType(){
     //alert(getDamage(20,50))
-    spaceShipType.push(new SpaceShipType("P&eacute;gase",new Cannon([5],[1]),2,200,26,2));
-    spaceShipType.push(new SpaceShipType("Satyre",new Cannon([6],[1]),5,195,32,3));
-    spaceShipType.push(new SpaceShipType("Chim&egrave;re",new Cannon([8],[2]),3,195,26,3));
+    spaceShipType.push(new SpaceShipType("P&eacute;gase",new Cannon([5],[1]),2,200,26,2,"Chasseur"));
+    spaceShipType.push(new SpaceShipType("Satyre",new Cannon([6],[1]),5,195,32,3,"Chasseur"));
+    spaceShipType.push(new SpaceShipType("Chim&egrave;re",new Cannon([8],[2]),3,195,26,3,"Chasseur"));
     
-    spaceShipType.push(new SpaceShipType("Si&egrave;rne",new Cannon([20],[1]),6,175,60,6));
-    spaceShipType.push(new SpaceShipType("Dryade",new Cannon([30],[1]),10,160,60,7));
-    spaceShipType.push(new SpaceShipType("M&eacute;duse",new Cannon([8,40],[2,1]),8,170,75,10));
+    spaceShipType.push(new SpaceShipType("Si&egrave;rne",new Cannon([20],[1]),6,175,60,6,"Corvette"));
+    spaceShipType.push(new SpaceShipType("Dryade",new Cannon([30],[1]),10,160,60,7,"Corvette"));
+    spaceShipType.push(new SpaceShipType("M&eacute;duse",new Cannon([8,40],[2,1]),8,170,75,10,"Corvette"));
     
-    spaceShipType.push(new SpaceShipType("Griffon",new Cannon([20],[4]),50,110,300,25));
-    spaceShipType.push(new SpaceShipType("Cyclope",new Cannon([225],[1]),40,90,320,45));
+    spaceShipType.push(new SpaceShipType("Griffon",new Cannon([20],[4]),50,110,300,25,"Fregate"));
+    spaceShipType.push(new SpaceShipType("Cyclope",new Cannon([225],[1]),40,90,320,45,"Fregate"));
     
-    spaceShipType.push(new SpaceShipType("Minotaure",new Cannon([50,30],[3,1]),100,88,1000,90));
-    spaceShipType.push(new SpaceShipType("Hydre",new Cannon([25],[20]),100,80,1100,90));
-    spaceShipType.push(new SpaceShipType("Cerb&egrave;re",new Cannon([30,80,175],[4,1,1]),120,70,1220,94));
-    spaceShipType.push(new SpaceShipType("Ph&eacute;nix",new Cannon([20,50,80,200],[4,2,2,1]),150,50,1300,96));
+    spaceShipType.push(new SpaceShipType("Minotaure",new Cannon([50,30],[3,1]),100,88,1000,90,"Destroyer"));
+    spaceShipType.push(new SpaceShipType("Hydre",new Cannon([25],[20]),100,80,1100,90,"Destroyer"));
+    
+    spaceShipType.push(new SpaceShipType("Cerb&egrave;re",new Cannon([30,80,175],[4,1,1]),120,70,1220,94,"Croiseur"));
+    spaceShipType.push(new SpaceShipType("Ph&eacute;nix",new Cannon([20,50,80,200],[4,2,2,1]),150,50,1300,96,"Croiseur"));
     
 }
 
@@ -169,6 +190,8 @@ function initAsylamba_Project_Script(){
     initSpaceShipType();
     initFlotte();
     drawPage();
+    drawTechTable();
+    
     
     drawInterface();
     
@@ -182,12 +205,18 @@ function initAsylamba_Project_Script(){
     
     $("spaceShipTable").style.left = w-30-750+ "px";
     $("spaceShipTable").style.top = "120px"
-    $("viewFlotte1").style.top = "150px";
+    
+    
+    
+    
+    $("tech1").style.top = "20px"
+    $("tech2").style.top = "570px"
+    $("viewFlotte1").style.top = "230px";
     $("viewFlotte1").style.height = "100px";
     //$("viewFlotte1").style.width = w-30-900-100+ "px";
     //$("viewFlotte2").style.width = w-30-900-100+ "px";
-    $("viewFlotte2").style.top = parseInt($("viewFlotte1").style.top) + parseInt($("viewFlotte1").style.height)+300+"px";
-    $("viewSapceShipEsca").style.left = "350px";
+    $("viewFlotte2").style.top = parseInt($("viewFlotte1").style.top) + parseInt($("viewFlotte1").style.height)+440+"px";
+    $("viewSapceShipEsca").style.left = "500px";
     $("viewSapceShipEsca").style.top = "20px";
     $("b1").style.left = "750px";
     $("b1").style.top = "200px";
@@ -235,12 +264,8 @@ function drawInterface(){
     drawSpaceShipTable();
     
     
-    try {
-        setTechValue();
-    } catch(e) {
-        alert(e);
-    }
     
+    /*
     var tempCheckedValue1 = false;
     var tempCheckedValue2 = false;
     var tempBF1 = 0;
@@ -258,30 +283,41 @@ function drawInterface(){
     }
     if ($("hasKBonusF2")!=null) {
         tempCheckedValue2=$("hasKBonusF2").checked;
-    }
+    }*/
+    //                                                                                                        <button onclick='swapFlotte()'>swap flottes </button>
+    $("viewFlotte1").innerHTML = "Cliquez sur une casse pour choisir l'escadrille. <br>flotte en d&eacute;fense. <br>"+ HTMLCodeFlotte(defenderFlotte);
     
-    $("viewFlotte1").innerHTML = "Cliquez sur une casse pour choisir l'escadrille. <br>flotte en d&eacute;fense. <br>Bonus technologique d'&eacute;vitement <input id='bonnusF1'> <br>Bonus de Kovahk <input id='hasKBonusF1' type='checkbox'>  <br><br>"+ HTMLCodeFlotte(defenderFlotte);
+    $("viewFlotte2").innerHTML = "flotte en attaque.<br>"+HTMLCodeFlotte(attackerFlotte);
     
-    //$("viewFlotte2").innerHTML = "flotte en attaque. <br>Bonus technologique <input id = 'bonnusF2'> <br>Bonus de Kovahk <input id='hasKBonusF2' type='checkbox'> <br><br>"+HTMLCodeFlotte(attackerFlotte);
-    
-    $("viewFlotte2").innerHTML = "flotte en attaque. <br>Bonus technologique d'&eacute;vitement <input id = 'bonnusF2'> <br>Bonus de Kovahk <input id='hasKBonusF2' type='checkbox'> <br><br>"+HTMLCodeFlotte(attackerFlotte);
+    //$("viewFlotte1").innerHTML = "Cliquez sur une casse pour choisir l'escadrille. <br>flotte en d&eacute;fense. <br>Bonus technologique d'&eacute;vitement <input id='bonnusF1'> <br>Bonus de Kovahk <input id='hasKBonusF1' type='checkbox'>  <br><br>"+ HTMLCodeFlotte(defenderFlotte);
 
-    
-    $("hasKBonusF1").checked = tempCheckedValue1;
-    $("hasKBonusF2").checked = tempCheckedValue2;
-    
-    
-    $("bonnusF1").defaultValue =tempBF1;
-    $("bonnusF2").defaultValue =tempBF2;
+    //$("viewFlotte2").innerHTML = "flotte en attaque. <br>Bonus technologique d'&eacute;vitement <input id = 'bonnusF2'> <br>Bonus de Kovahk <input id='hasKBonusF2' type='checkbox'> <br><br>"+HTMLCodeFlotte(attackerFlotte);
+    /*
+    if ($("hasKBonusF1") != null && $("hasKBonusF2")!=null && $("bonnusF2")!= null && $("bonnusF1")!= null ) {
+        $("hasKBonusF1").checked = tempCheckedValue1;
+        $("hasKBonusF2").checked = tempCheckedValue2;
+        
+        
+        $("bonnusF1").defaultValue =tempBF1;
+        $("bonnusF2").defaultValue =tempBF2;
+    }
+    */
     
     drawEscaView();//$("viewSapceShipEsca")
+    
+    try {
+        setTech(defenderFlotte);
+        setTech(attackerFlotte);
+    } catch(e) {
+        alert(e);
+    }
 }
 
 function drawSpaceShipTable(){
     
     
-    var arrayToDraw = [["nom","attaque","d&eacute;fense","vitesse","coque","PEV"]];
-    var styleArray = [["width : 100px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;"]];
+    var arrayToDraw = [["nom","attaque","d&eacute;fense","vitesse","coque","PEV","type"]];
+    var styleArray = [["width : 100px;text-align: center;","width : 70px;text-align: center;","width : 70px;text-align: center;","width : 70px;text-align: center;","width : 70px;text-align: center;","width : 70px;text-align: center;","width : 70px;text-align: center;"]];
     /**for (var j in spaceShipType[0]) {
         arrayToDraw[0].push(j); // peut etre changer
         styleArray[0].push("width : 100px;text-align: center;");
@@ -291,9 +327,9 @@ function drawSpaceShipTable(){
         arrayToDraw.push([]);
         styleArray.push([]);
         ++j;
-        for (var l=0; l<6;l++){
+        for (var l=0; l<7;l++){
             
-            styleArray[j].push("width : 100px;text-align: center;' onclick ='tableSpaceShipClick(" +i+""  + ",event)");
+            styleArray[j].push("width : 70px;text-align: center;' onclick ='tableSpaceShipClick(" +i+""  + ",event)");
             
         }
         //alert(spaceShipType[i].name)
@@ -313,17 +349,17 @@ function drawSpaceShipTable(){
         }
         attackText = attackText.substring(0,attackText.length-2)
         arrayToDraw[j].push(attackText);
-        arrayToDraw[j].push(spaceShipType[i].defense,spaceShipType[i].speed,spaceShipType[i].maxHull,spaceShipType[i].pev)
+        arrayToDraw[j].push(spaceShipType[i].defense,spaceShipType[i].speed,spaceShipType[i].maxHull,spaceShipType[i].pev,spaceShipType[i].typeName)
     }
     arrayToDraw.push(["<button onclick='addNewType();'>ajouter un nouveau type</button> (m&ecirc;me format qu'au dessus et &eacute;vitez les accents dans le nom)"]);
-    styleArray.push(["text-align:center;' colspan='6"]);
+    styleArray.push(["text-align:center;' colspan='7"]);
     
     /*
      *TODO fair entrée nouveau type
      */
     
-    arrayToDraw.push(["<input style='width : 93px;' id='newShipInput1'>","<input style='width : 200px;' id='newShipInput2'>","<input style='width : 93px;' id='newShipInput3'input style='width : 93px;'>","<input style='width : 93px;' id='newShipInput4'>","<input style='width : 93px;' id='newShipInput5'> ","<input style='width : 93px;' id='newShipInput6'> "]);
-    styleArray.push(["width : 100px;"]);
+    arrayToDraw.push(["<input style='width : 93px;' id='newShipInput1'>","<input style='width : 200px;' id='newShipInput2'>","<input style='width : 63px;' id='newShipInput3'>","<input style='width : 63px;' id='newShipInput4'>","<input style='width : 63px;' id='newShipInput5'> ","<input style='width : 63px;' id='newShipInput6'> ","<input style='width : 63px;' id='newShipInput7'> "]);
+    styleArray.push(["width : 70px;"]);
     
     $("spaceShipTable").innerHTML = "<p>Cliquez sur une des lignes pour ajouter le vaisseau (shift/maj ajouter 10 vaisseaux). Cliquez sur le tabeau au dessu du tabelau de flotte pour supprimer un vaisseau.<\p>";
     $("spaceShipTable").innerHTML += displayTable(arrayToDraw,styleArray);
@@ -339,6 +375,8 @@ function addNewType(){
         var input4 = parseInt($("newShipInput4").value);
         var input5 = parseInt($("newShipInput5").value);
         var input6 = parseInt($("newShipInput6").value);
+        var input7 = ($("newShipInput7").value);
+        
         var j =0;
         
         
@@ -360,6 +398,9 @@ function addNewType(){
         }
         if (isNaN(input6) || input6<=0) {
             throw "mauvaise entee un nombre est attendu";
+        }
+        if (input7 != "Chasseur" && input7 != "Corvette" && input7 != "Fregate" && input7 != "Destroyer" && input7 != "Croiseur" ) {
+            throw "le type doit etre soit Chasseur, Corvette, Fregate (je sais pour les acents mais pour des raison d'encodage ils ne peuvent pas etre comme entre au clavier), Destroyer soit Croiseur";
         }
         
         
@@ -402,7 +443,7 @@ function addNewType(){
             
         }
         
-        spaceShipType.push(new SpaceShipType(input1,new Cannon(attakArray,numberArray),input3,input4,input5,input6));
+        spaceShipType.push(new SpaceShipType(input1,new Cannon(attakArray,numberArray),input3,input4,input5,input6,input7));
         drawInterface();
         
         
@@ -607,12 +648,11 @@ function copie(flotte,id) {
     
     
     returnFlotte = new Flotte(ligneArray,id);
-    returnFlotte.tech = flotte.tech;
+    returnFlotte.tech = flotte.tech; // tech is not change by the simulation
     return returnFlotte;
     
 }
-
-function setTechValue(){
+/*function setTechValue(){
     var valueTech1 = 0;;
     var valueTech2 = 0;;
     var hasKBonusF1 = 0;
@@ -658,6 +698,82 @@ function setTechValue(){
     else{
         return 1;
     }
+}*/
+
+function setTech(flotte) {
+    const LISTE_OF_SHIP = ["Chasseur","Corvette","Fregate","Destroyer","Croiseur"];
+    const LISTE_OF_SHIP_ALPHA = ["Chasseur","Corvette"];
+    const LISTE_OF_SHIP_LIGNE = ["Fregate","Destroyer","Croiseur"];
+    const LISTE_OF_TECH_TYPE = ["vitesse","attaque","defense"];
+    var id = flotte.id +1; // go see how it is defind in drawTechTable
+    
+    var needToThrow = false;
+    for( var i in LISTE_OF_SHIP){
+        for (var j in LISTE_OF_TECH_TYPE){
+            
+            var value = parseInt($(id+"*"+LISTE_OF_SHIP[i]+"*"+LISTE_OF_TECH_TYPE[j]).value);
+           
+            if (isNaN(value) || value < 0) {
+                needToThrow = true;
+                
+                $(id+"*"+LISTE_OF_SHIP[i]+"*"+LISTE_OF_TECH_TYPE[j]).value =0;
+                flotte.tech[LISTE_OF_SHIP[i]][LISTE_OF_TECH_TYPE[j]] = 0;
+            }
+            else{
+                if (LISTE_OF_SHIP[i]=="Chasseur") {
+                    flotte.tech[LISTE_OF_SHIP[i]][LISTE_OF_TECH_TYPE[j]] = value*0.03;
+                }
+                else{
+                flotte.tech[LISTE_OF_SHIP[i]][LISTE_OF_TECH_TYPE[j]] = value*0.02;
+                }
+            }
+        }
+    }
+    
+    if ($(id+"*Kovahk").checked) {
+        for  (var i in LISTE_OF_SHIP_ALPHA ){
+            flotte.tech[LISTE_OF_SHIP_ALPHA[i]]["vitesse"] += 0.1;
+        }
+        
+        for (var i in LISTE_OF_SHIP_LIGNE){
+            flotte.tech[LISTE_OF_SHIP_LIGNE[i]]["vitesse"] -= 0.05;
+        }
+    }
+    
+    if (needToThrow) {
+        throw "mauvaise entee";
+    }
+    
+}
+
+function drawTechTable(){
+    const inputSize = 50
+    const lsiteOfShipType = ["Chasseur","Corvette","Fregate","Destroyer","Croiseur"];
+    var arrayDisplay = [["Bonus (niveau de technologie)","vitesse","attaque","d&eacute;fense"]]; //vitesse attque defense
+    var arrayDisplay2 = [["Bonus (niveau de technologie)","vitesse","attaque","d&eacute;fense"]]; //vitesse attque defense
+    var styleArray = [[""],[""],[""],[""],[""],[""],[""]];
+    
+
+    for (var i =0;i<=4;++i){
+        arrayDisplay.push([lsiteOfShipType[i],"<input style='width : "+inputSize+"px;' id='"+"1*"+lsiteOfShipType[i]+"*"+arrayDisplay[0][1]+"'>","<input style='width : "+inputSize+"px;' id='"+"1*"+lsiteOfShipType[i]+"*"+arrayDisplay[0][2] +"'>","<input style='width : "+inputSize+"px;' id='"+"1*"+lsiteOfShipType[i]+"*"+"defense"+"'>"]);
+        arrayDisplay2.push([lsiteOfShipType[i],"<input style='width : "+inputSize+"px;' id='"+"2*"+lsiteOfShipType[i]+"*"+arrayDisplay[0][1]+"'>","<input style='width : "+inputSize+"px;' id='"+"2*"+lsiteOfShipType[i]+"*"+arrayDisplay[0][2]+"'>","<input style='width : "+inputSize+"px;' id='"+"2*"+lsiteOfShipType[i]+"*"+"defense"+"'>"]);
+        //alert("1*"+lsiteOfShipType[i]+"*"+arrayDisplay[0][1])
+    }
+    
+    $("tech1").innerHTML = displayTable(arrayDisplay,styleArray)+ " Bonus de Kovahk <input id='1*Kovahk' type='checkbox'> " ;
+    $("tech2").innerHTML = displayTable(arrayDisplay2,styleArray)+ " Bonus de Kovahk <input id='2*Kovahk' type='checkbox'> ";
+    
+    const LISTE_OF_SHIP = ["Chasseur","Corvette","Fregate","Destroyer","Croiseur"];
+    const LISTE_OF_TECH_TYPE = ["vitesse","attaque","defense"];
+    
+    for( var i in LISTE_OF_SHIP){
+        for (var j in LISTE_OF_TECH_TYPE){
+            
+            $(1+"*"+LISTE_OF_SHIP[i]+"*"+LISTE_OF_TECH_TYPE[j]).defaultValue =0;
+            $(2+"*"+LISTE_OF_SHIP[i]+"*"+LISTE_OF_TECH_TYPE[j]).defaultValue =0;
+        }
+    }
+    
 }
 
 
