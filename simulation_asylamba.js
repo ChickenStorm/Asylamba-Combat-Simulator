@@ -105,7 +105,7 @@ function runSimulation(){ // this is the main function
         tempStyleArray.push(["width:100px","width:100px","width:100px","width:100px","width:100px"]);
         tempArray.push([numberOfSimulation,winingOnlyFlotte2 + " ( "+ winingOnlyFlotte2/ numberOfSimulation+" )",winingOnlyFlotte1 + " ("+ winingOnlyFlotte1/ numberOfSimulation+" )",loosingFlotte1AndFlotte2 +" ( "+ loosingFlotte1AndFlotte2/numberOfSimulation +" )",totalSimulationLoop/numberOfSimulation])
         tempStyleArray.push(["","","","",""]);
-        tempArray.push(["<button onclick='drawAdvanceDetail()'> afficher plus de d&eacute;tails </button>"]);
+        tempArray.push(["<button onclick='drawAdvanceDetail()' id='b1Detail'> afficher plus de d&eacute;tails </button>"]);
         tempStyleArray.push(["text-align: center;' colspan= '5"]);
         
        
@@ -384,6 +384,8 @@ function drawAdvanceDetail(){//affiche plus de détail de la sim. est exécuter qu
     
     var tempArrayFlotte1 = [["Nom","nombre moyen restant"]];
     var styleArrayFlotte1 =[["text-align: center;","text-align: center;"]];
+    
+    $("b1Detail").style.visibility = "hidden";
     
     for (var l in simulationArrayResult){
         for (var iLine in simulationArrayResult[l].flotte1.ligneArray){

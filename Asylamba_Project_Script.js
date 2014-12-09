@@ -50,7 +50,7 @@ var attackerFlotte;
 
 
 
-var version = "pre 0.0.11"
+var version = "0.0.11.1"
 
 //----------------------------------------------------------------------------------------------
 
@@ -138,7 +138,7 @@ function initSpaceShipType(){
     spaceShipType.push(new SpaceShipType("Cyclope",new Cannon([225],[1]),40,90,320,45,"Fregate"));
     
     spaceShipType.push(new SpaceShipType("Minotaure",new Cannon([50,30],[3,1]),100,88,1000,90,"Destroyer"));
-    spaceShipType.push(new SpaceShipType("Hydre",new Cannon([25],[20]),100,80,1100,90,"Destroyer"));
+    spaceShipType.push(new SpaceShipType("Hydre",new Cannon([25],[20]),100,80,1100,92,"Destroyer"));
     
     spaceShipType.push(new SpaceShipType("Cerb&egrave;re",new Cannon([30,80,175],[4,1,1]),120,70,1220,94,"Croiseur"));
     spaceShipType.push(new SpaceShipType("Ph&eacute;nix",new Cannon([20,50,80,200],[4,2,2,1]),150,50,1300,96,"Croiseur"));
@@ -748,15 +748,15 @@ function setTech(flotte) {
 
 function drawTechTable(){
     const inputSize = 50
-    const lsiteOfShipType = ["Chasseur","Corvette","Fregate","Destroyer","Croiseur"];
+    const LISTE_OF_SHIP_TYPE = ["Chasseur","Corvette","Fregate","Destroyer","Croiseur"];
     var arrayDisplay = [["Bonus (niveau de technologie)","vitesse","attaque","d&eacute;fense"]]; //vitesse attque defense
     var arrayDisplay2 = [["Bonus (niveau de technologie)","vitesse","attaque","d&eacute;fense"]]; //vitesse attque defense
     var styleArray = [[""],[""],[""],[""],[""],[""],[""]];
     
 
     for (var i =0;i<=4;++i){
-        arrayDisplay.push([lsiteOfShipType[i],"<input style='width : "+inputSize+"px;' id='"+"1*"+lsiteOfShipType[i]+"*"+arrayDisplay[0][1]+"'>","<input style='width : "+inputSize+"px;' id='"+"1*"+lsiteOfShipType[i]+"*"+arrayDisplay[0][2] +"'>","<input style='width : "+inputSize+"px;' id='"+"1*"+lsiteOfShipType[i]+"*"+"defense"+"'>"]);
-        arrayDisplay2.push([lsiteOfShipType[i],"<input style='width : "+inputSize+"px;' id='"+"2*"+lsiteOfShipType[i]+"*"+arrayDisplay[0][1]+"'>","<input style='width : "+inputSize+"px;' id='"+"2*"+lsiteOfShipType[i]+"*"+arrayDisplay[0][2]+"'>","<input style='width : "+inputSize+"px;' id='"+"2*"+lsiteOfShipType[i]+"*"+"defense"+"'>"]);
+        arrayDisplay.push([LISTE_OF_SHIP_TYPE[i],"<input style='width : "+inputSize+"px;' id='"+"1*"+LISTE_OF_SHIP_TYPE[i]+"*"+arrayDisplay[0][1]+"'>","<input style='width : "+inputSize+"px;' id='"+"1*"+LISTE_OF_SHIP_TYPE[i]+"*"+arrayDisplay[0][2] +"'>","<input style='width : "+inputSize+"px;' id='"+"1*"+LISTE_OF_SHIP_TYPE[i]+"*"+"defense"+"'>"]);
+        arrayDisplay2.push([LISTE_OF_SHIP_TYPE[i],"<input style='width : "+inputSize+"px;' id='"+"2*"+LISTE_OF_SHIP_TYPE[i]+"*"+arrayDisplay[0][1]+"'>","<input style='width : "+inputSize+"px;' id='"+"2*"+LISTE_OF_SHIP_TYPE[i]+"*"+arrayDisplay[0][2]+"'>","<input style='width : "+inputSize+"px;' id='"+"2*"+LISTE_OF_SHIP_TYPE[i]+"*"+"defense"+"'>"]);
         //alert("1*"+lsiteOfShipType[i]+"*"+arrayDisplay[0][1])
     }
     
