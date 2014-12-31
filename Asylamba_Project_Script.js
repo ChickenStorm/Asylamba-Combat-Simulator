@@ -512,7 +512,7 @@ function setTech(flotte) {
     }
     if ($(id+"*SE").checked) {
         for(var i in LISTE_OF_SHIP){
-            flotte.tech[LISTE_OF_SHIP[i]]["vitesse"] += 0.05;
+            flotte.tech[LISTE_OF_SHIP[i]]["defense"] += 0.05;
         }
     }
     if (needToThrow) {
