@@ -93,27 +93,15 @@ function runSimulation(){ // this is the main function
                 ++loosingFlotte1AndFlotte2;
             }
             totalSimulationLoop += tempResult.simulationLoop;
-            
+            /*
+             *
+             * TODO ajout pour affciher directement le tabeau des vaisseau
+             *
+             */
         }
         
-        drawInterface();
+        drawSimulationResult(numberOfSimulation,winingOnlyFlotte1,winingOnlyFlotte2,loosingFlotte1AndFlotte2,totalSimulationLoop);
        
-       //drawResult(simulationArrayResult);
-       var tempArray = []
-       var tempStyleArray = [] // i should creat a function for this part
-        tempArray.push(["nombre de simulations","seul flotte attaquante victorieuse","seul flotte en defense victorieuse","exaequo (les deux sont d&eacute;truites)","nombre moyen de tour"]);
-        tempStyleArray.push(["width:100px","width:100px","width:100px","width:100px","width:100px"]);
-        tempArray.push([numberOfSimulation,winingOnlyFlotte2 + " ( "+ winingOnlyFlotte2/ numberOfSimulation+" )",winingOnlyFlotte1 + " ("+ winingOnlyFlotte1/ numberOfSimulation+" )",loosingFlotte1AndFlotte2 +" ( "+ loosingFlotte1AndFlotte2/numberOfSimulation +" )",totalSimulationLoop/numberOfSimulation])
-        tempStyleArray.push(["","","","",""]);
-        tempArray.push(["<button onclick='drawAdvanceDetail()' id='b1Detail'> afficher plus de d&eacute;tails </button>"]);
-        tempStyleArray.push(["text-align: center;' colspan= '5"]);
-        
-       
-       
-        $("result").innerHTML = displayTable(tempArray,tempStyleArray);
-        $("moreDetaileResult").innerHTML ="";
-        
-        
     }
     catch(e){
         alert( "error : "+ e)
@@ -142,7 +130,7 @@ function simulation(flotte1,flotte2){ // run an iteration of the simualtion.
         for (var i =0 ; i< flotte1.ligneArray.length &&  i < simulationLoop/3; ++i ) { // the simulationLoop/3 repesent the max lign in the combat
             
             for(var j =0 ; j< flotte1.ligneArray[i].escadrilleArray.length;++j){ // for each escadrille in flotte1
-                if ( flotte1.ligneArray[i].escadrilleArray[j].pev!=0) { // rencently added optimisation 
+                if ( flotte1.ligneArray[i].escadrilleArray[j].pev!=0) { //  optimisation 
                    
                     
                     if (flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis == null || flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis.pev ==0 ) { // does it need to take a new cible
@@ -377,106 +365,6 @@ function hasSpaceShipLineLimitation(flotte,maxLine){ // détermine si entre 0 et 
     }
     
     return false;
-}
-
-function drawAdvanceDetail(){//affiche plus de détail de la sim. est exécuter quand l'utilisateur appuis sur "afficher plus de détails"
-    //alert("")
-    
-    var tempArrayFlotte1 = [["Nom","nombre moyen restant"]];
-    var styleArrayFlotte1 =[["text-align: center;","text-align: center;"]];
-    
-    $("b1Detail").style.visibility = "hidden";
-    
-    for (var l in simulationArrayResult){
-        for (var iLine in simulationArrayResult[l].flotte1.ligneArray){
-            for (var iEsc in simulationArrayResult[l].flotte1.ligneArray[iLine].escadrilleArray){
-                var spaceShipTemp = simulationArrayResult[l].flotte1.ligneArray[iLine].escadrilleArray[iEsc].spaceShipArray;
-                
-                for (var i in spaceShipTemp){
-                    
-                    if (tempArrayFlotte1.length==0) {
-                        tempArrayFlotte1.push([spaceShipTemp[i].type.name,1]);
-                        
-                        styleArrayFlotte1.push(["text-align: center;","text-align: center;"]);
-                    }
-                    else{
-                        var isInside = false;
-                        for(var j in tempArrayFlotte1){
-                            
-                            
-                            if (tempArrayFlotte1[j][0] == spaceShipTemp[i].type.name) {
-                                ++tempArrayFlotte1[j][1];
-                                isInside = true;
-                            }
-                            
-                            
-                        }
-                        
-                        if (!isInside) {
-                            
-                            tempArrayFlotte1.push([spaceShipTemp[i].type.name,1]);
-                            styleArrayFlotte1.push(["text-align: center;","text-align: center;"]);
-                            
-                        }
-                    }
-                    
-                }
-            }
-        }
-    }
-    
-    for (var iDiv = 1 ; iDiv < tempArrayFlotte1.length;++iDiv){
-        tempArrayFlotte1[iDiv][1] = tempArrayFlotte1[iDiv][1]/numberOfSimulation;
-    }
-    
-    var tempArrayFlotte2 = [["Nom","nombre moyen restant"]];
-    var styleArrayFlotte2 =[["text-align: center;","text-align: center;"]];
-    
-    for (var l in simulationArrayResult){
-        for (var iLine in simulationArrayResult[l].flotte2.ligneArray){
-            for (var iEsc in simulationArrayResult[l].flotte2.ligneArray[iLine].escadrilleArray){
-                var spaceShipTemp = simulationArrayResult[l].flotte2.ligneArray[iLine].escadrilleArray[iEsc].spaceShipArray;
-                
-                for (var i in spaceShipTemp){
-                    
-                    if (tempArrayFlotte2.length==0) {
-                        tempArrayFlotte2.push([spaceShipTemp[i].type.name,1]);
-                        
-                        styleArrayFlotte2.push(["text-align: center;","text-align: center;"]);
-                    }
-                    else{
-                        var isInside = false;
-                        for(var j in tempArrayFlotte2){
-                            
-                            
-                            if (tempArrayFlotte2[j][0] == spaceShipTemp[i].type.name) {
-                                ++tempArrayFlotte2[j][1];
-                                isInside = true;
-                            }
-                            
-                            
-                        }
-                        
-                        if (!isInside) {
-                            
-                            tempArrayFlotte2.push([spaceShipTemp[i].type.name,1]);
-                            styleArrayFlotte2.push(["text-align: center;","text-align: center;"]);
-                            
-                        }
-                    }
-                    
-                }
-            }
-        }
-    }
-    
-    for (var iDiv = 1 ; iDiv < tempArrayFlotte2.length;++iDiv){
-        tempArrayFlotte2[iDiv][1] = tempArrayFlotte2[iDiv][1]/numberOfSimulation;
-    }
-    
-    
-    
-    $("moreDetaileResult").innerHTML ="Flotte en d&eacute;fense <br>"+ displayTable(tempArrayFlotte1,styleArrayFlotte1) + "<br> flotte en attaque <br>"+displayTable(tempArrayFlotte2,styleArrayFlotte2);
 }
 
 

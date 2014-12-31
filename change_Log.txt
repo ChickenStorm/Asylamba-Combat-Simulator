@@ -63,3 +63,5 @@ ajout du type de vaisseau
 pre 0.0.11.1
 cache le bouton afficher plus de détails après avoir appuyer dessus
 correction pev Hydre : 92
+
+
