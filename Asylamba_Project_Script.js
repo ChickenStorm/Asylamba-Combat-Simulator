@@ -50,7 +50,7 @@ var attackerFlotte;
 
 
 
-var version = "0.0.11.1"
+var version = "0.0.12"
 
 //----------------------------------------------------------------------------------------------
 //object declaration
@@ -510,7 +510,11 @@ function setTech(flotte) {
             flotte.tech[LISTE_OF_SHIP_LIGNE[i]]["vitesse"] -= 0.05;
         }
     }
-    
+    if ($(id+"*SE").checked) {
+        for(var i in LISTE_OF_SHIP){
+            flotte.tech[LISTE_OF_SHIP[i]]["vitesse"] += 0.05;
+        }
+    }
     if (needToThrow) {
         throw "mauvaise entee";
     }

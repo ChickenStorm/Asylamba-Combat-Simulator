@@ -73,6 +73,10 @@ function runSimulation(){ // this is the main function
         
         setTech(defenderFlotte);
         setTech(attackerFlotte);
+        
+        
+        
+            
         for (var m = 0; m<numberOfSimulation ; ++m) {
             var tempResult = simulation(copie(defenderFlotte,2),copie(attackerFlotte,3)); // I need to copie becaus it passsed by ref and I don't want to influance the input of the user.
             
@@ -98,9 +102,15 @@ function runSimulation(){ // this is the main function
              * TODO ajout pour affciher directement le tabeau des vaisseau
              *
              */
+            
+            
+            
         }
         
         drawSimulationResult(numberOfSimulation,winingOnlyFlotte1,winingOnlyFlotte2,loosingFlotte1AndFlotte2,totalSimulationLoop);
+        if ($("autoMoreDetails").checked) {
+            drawAdvanceDetail();
+        }
        
     }
     catch(e){

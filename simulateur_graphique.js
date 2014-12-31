@@ -68,7 +68,7 @@ function positionEllementHTMLPage(width){ // position les éllements sur la page
     
     $("tech1").style.top = "20px"
     $("tech2").style.top = "570px"
-    $("viewFlotte1").style.top = "230px";
+    $("viewFlotte1").style.top = "240px";
     $("viewFlotte1").style.height = "100px";
     //$("viewFlotte1").style.width = w-30-900-100+ "px";
     //$("viewFlotte2").style.width = w-30-900-100+ "px";
@@ -76,7 +76,7 @@ function positionEllementHTMLPage(width){ // position les éllements sur la page
     $("viewSapceShipEsca").style.left = "500px";
     $("viewSapceShipEsca").style.top = "20px";
     $("b1").style.left = "750px";
-    $("b1").style.top = "200px";
+    $("b1").style.top = "220px";
     
     $("resultGeneral").style.left = "600px";
     $("resultGeneral").style.top = "250px";
@@ -294,8 +294,8 @@ function drawTechTable(){
         //alert("1*"+lsiteOfShipType[i]+"*"+arrayDisplay[0][1])
     }
     
-    $("tech1").innerHTML = displayTable(arrayDisplay,styleArray)+ " Bonus de Kovahk <input id='1*Kovahk' type='checkbox'> " ;
-    $("tech2").innerHTML = displayTable(arrayDisplay2,styleArray)+ " Bonus de Kovahk <input id='2*Kovahk' type='checkbox'> ";
+    $("tech1").innerHTML = displayTable(arrayDisplay,styleArray)+ " Bonus de Kovahk <input id='1*Kovahk' type='checkbox'> " + "<br>" +"Bonus de Synelle/Empire <input id='1*SE' type='checkbox'> " ;
+    $("tech2").innerHTML = displayTable(arrayDisplay2,styleArray)+ " Bonus de Kovahk <input id='2*Kovahk' type='checkbox'> " + "<br>" +"Bonus de Synelle/Empire <input id='2*SE' type='checkbox'> ";
     
     const LISTE_OF_SHIP = ["Chasseur","Corvette","Fregate","Destroyer","Croiseur"];
     const LISTE_OF_TECH_TYPE = ["vitesse","attaque","defense"];
@@ -316,6 +316,8 @@ function drawSimulationResult(numberOfSimulation,winingOnlyFlotte1,winingOnlyFlo
         drawInterface();
        
        //drawResult(simulationArrayResult);
+       
+        $("moreDetaileResult").innerHTML ="";
         var tempArray = [];
         var tempStyleArray = [];
         tempArray.push(["nombre de simulations","seul flotte attaquante victorieuse","seul flotte en defense victorieuse","exaequo (les deux sont d&eacute;truites)","nombre moyen de tour"]);
@@ -328,7 +330,7 @@ function drawSimulationResult(numberOfSimulation,winingOnlyFlotte1,winingOnlyFlo
        
        
         $("result").innerHTML = displayTable(tempArray,tempStyleArray);
-        $("moreDetaileResult").innerHTML ="";
+        
         
         
 }
