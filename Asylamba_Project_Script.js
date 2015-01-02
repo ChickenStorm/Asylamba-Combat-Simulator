@@ -86,17 +86,17 @@ function SpaceShip(spaceShipType){
     
 }
 
-function Escadrille(refF,refL,refE){
+function Escadrille(refF,refL,refE){ // french for squadron
     this.maxPEV = 100;
     this.spaceShipArray = [];
     this.pev=0;
-    this.cibledEscEnemis=null;
-    this.ref = [refF,refL,refE];
+    this.targetedEscEnemis=null; // french for squadron trageted
+    this.ref = [refF,refL,refE];// refF flotte id . refL ligne id, refE escadrille id
     
     
 }
 
-function Ligne(escadrilleArray){
+function Ligne(escadrilleArray){ //french for Line 
     this.escadrilleArray = escadrilleArray;
     
 }
@@ -149,10 +149,15 @@ function initSpaceShipType(){
 function initFlotte(){
     var tempEsqArray =[];
     var ligneArray = [];
-    for (var i = 0; i<5;++i){
+    
+    const NUMBER_OF_LIGNE = 5;
+    const NUMBER_OF_ESCA_PER_LIGNE = 9;
+    
+    // may do a function for this
+    for (var i = 0; i< NUMBER_OF_LIGNE ;++i){
         //ligneArray.push([])
         
-        for (var j =0;j< 9 ;++j){
+        for (var j =0;j< NUMBER_OF_ESCA_PER_LIGNE ;++j){
             
             tempEsqArray.push(new Escadrille(0,i,j));
         }
@@ -167,10 +172,10 @@ function initFlotte(){
     
     tempEsqArray =[];
     ligneArray = [];
-    for (var i = 0; i<5;++i){
+    for (var i = 0; i< NUMBER_OF_LIGNE; ++i){
         //ligneArray.push([])
         
-        for (var j =0;j< 9 ;++j){
+        for (var j =0;j< NUMBER_OF_ESCA_PER_LIGNE; ++j){
             
             tempEsqArray.push(new Escadrille(1,i,j));
         }
@@ -190,11 +195,11 @@ function initAsylamba_Project_Script(){
     
     initSpaceShipType();
     initFlotte();
-    drawPage();
-    drawTechTable();
+    drawPage(); // from Html_page.js
+    drawTechTable(); // from simulateur_farphique.js
     
     
-    drawInterface();
+    drawInterface(); // from simulateur_farphique.js
     
     
     //$("spaceSchipTable").style.backgroundColor = 'white';
@@ -203,8 +208,8 @@ function initAsylamba_Project_Script(){
     //var w = window.innerWidth;
     
     
-    var w = 1920;
-    positionEllementHTMLPage(w);
+    var w = 1920; // my screen width
+    positionEllementHTMLPage(w); // from simulateur_farphique.js
 }
 
 
@@ -212,7 +217,7 @@ function initAsylamba_Project_Script(){
 function addNewType(){
     try {
         
-        var input2 = "";
+        //var input2 = "";
         var input1 = $("newShipInput1").value;
         var input2 = $("newShipInput2").value;
         var input3 = parseInt($("newShipInput3").value);
@@ -221,7 +226,7 @@ function addNewType(){
         var input6 = parseInt($("newShipInput6").value);
         var input7 = ($("newShipInput7").value);
         
-        var j =0;
+        var j =0; // use ???
         
         
         for (var i in spaceShipType){
@@ -322,7 +327,7 @@ function tableSpaceShipClick(spaceShipTypePos,ev){
         if (selectedFlotte==0) {
             if (selectedLigne != -1 && selectedEsc != -1) {
                 if (defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].maxPEV >= defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev + spaceShipType[spaceShipTypePos].pev) {
-                    
+                    // if there is enought space 
                     
                     defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].spaceShipArray.push(new SpaceShip(spaceShipType[spaceShipTypePos]));
                     defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev += spaceShipType[spaceShipTypePos].pev;
@@ -336,7 +341,7 @@ function tableSpaceShipClick(spaceShipTypePos,ev){
         if (selectedFlotte==1) {
             if (selectedLigne != -1 && selectedEsc != -1) {
                 if (attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].maxPEV >= attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev + spaceShipType[spaceShipTypePos].pev) {
-                    
+                    // if there is enought space 
                     
                     attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].spaceShipArray.push(new SpaceShip(spaceShipType[spaceShipTypePos]));
                     attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev += spaceShipType[spaceShipTypePos].pev;
@@ -355,6 +360,7 @@ function tableSpaceShipClick(spaceShipTypePos,ev){
 
 
 function removeSpaceShipEsc(pos){
+    // remove in the selected esca a schip from pos
     var spaceShipTemp = flotteArray[selectedFlotte].ligneArray[selectedLigne].escadrilleArray[selectedEsc].spaceShipArray;
     var pevTemp = spaceShipTemp[pos].type.pev;
     spaceShipTemp = removeOneElementFromPos(spaceShipTemp,pos);
@@ -380,6 +386,7 @@ function removeOneElementFromPos(array,pos){
 }
 
 function removeSpaceShip(esquadrille,pos){
+    // remove in the esca a schip from pos
     var temp = esquadrille.spaceShipArray[pos];
     esquadrille.pev -= temp.type.pev;
     esquadrille.spaceShipArray = removeOneElementFromPos(esquadrille.spaceShipArray,pos);
@@ -388,6 +395,7 @@ function removeSpaceShip(esquadrille,pos){
 }
 
 function copie(flotte,id) {
+    // do a copie of a flotte withe the new id id.
     var returnFlotte = null;
     var tempEsqArray =[];
     var ligneArray = [];
@@ -420,6 +428,7 @@ function copie(flotte,id) {
     
     returnFlotte = new Flotte(ligneArray,id);
     returnFlotte.tech = flotte.tech; // tech is not change by the simulation
+    // the tech as it's a "new" is the same memory space => it 's a reference. 
     return returnFlotte;
     
 }
@@ -472,6 +481,7 @@ function copie(flotte,id) {
 }*/
 
 function setTech(flotte) {
+    // set the tech value of a flotte based on the user interface (UI)
     const LISTE_OF_SHIP = ["Chasseur","Corvette","Fregate","Destroyer","Croiseur"];
     const LISTE_OF_SHIP_ALPHA = ["Chasseur","Corvette"];
     const LISTE_OF_SHIP_LIGNE = ["Fregate","Destroyer","Croiseur"];

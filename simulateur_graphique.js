@@ -94,7 +94,7 @@ function positionEllementHTMLPage(width){ // position les éllements sur la page
     
 }
 
-function drawInterface(){ // utiliser par la plus part des faonction qui modifie l'affichage
+function drawInterface(){ // utiliser par la plus part des fonction qui modifie l'affichage
     
     drawSpaceShipTable();
     

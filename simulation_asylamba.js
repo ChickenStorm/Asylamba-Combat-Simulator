@@ -42,8 +42,8 @@ function SimulationResult(winFlotte1,winFlotte2,simulationLoop,flotte1,flotte2) 
     this.flotte2 = flotte2;
     
 }
-var simulationArrayResult = []
-var numberOfSimulation=0;
+var simulationArrayResult = [] 
+var numberOfSimulation=0; 
 function runSimulation(){ // this is the main function
     
     //escaAttack(attackerFlotte.ligneArray[0].escadrilleArray[0],defenderFlotte.ligneArray[0].escadrilleArray[0]);
@@ -71,14 +71,14 @@ function runSimulation(){ // this is the main function
             numberOfSimulation = valueI1;
         }
         
-        setTech(defenderFlotte);
-        setTech(attackerFlotte);
+        setTech(defenderFlotte); // this could throw 
+        setTech(attackerFlotte); 
         
         
         
             
         for (var m = 0; m<numberOfSimulation ; ++m) {
-            var tempResult = simulation(copie(defenderFlotte,2),copie(attackerFlotte,3)); // I need to copie becaus it passsed by ref and I don't want to influance the input of the user.
+            var tempResult = simulation(copie(defenderFlotte,2),copie(attackerFlotte,3)); // I need to copie becaus it's by ref and I don't want to modifi the input of the user or the flotte for the next sim.
             
             
             
@@ -114,7 +114,7 @@ function runSimulation(){ // this is the main function
        
     }
     catch(e){
-        alert( "error : "+ e)
+        alert( "error : "+ e);
     }
     
     
@@ -122,7 +122,7 @@ function runSimulation(){ // this is the main function
     
 }
 
-function simulation(flotte1,flotte2){ // run an iteration of the simualtion.
+function simulation(flotte1,flotte2){ // run an iteration of the simualtion. flotte1 flotte attaquante. flotte2 flotte defensive
     var id1 = flotte1.id;
     var id2 = flotte2.id ;
     var simulationLoop = 0;
@@ -137,18 +137,18 @@ function simulation(flotte1,flotte2){ // run an iteration of the simualtion.
         
         
         
-        for (var i =0 ; i< flotte1.ligneArray.length &&  i < simulationLoop/3; ++i ) { // the simulationLoop/3 repesent the max lign in the combat
+        for (var i =0 ; i< flotte1.ligneArray.length &&  i < simulationLoop/3; ++i ) { // the simulationLoop/3 repesent the max ligne (line) in the combat
             
-            for(var j =0 ; j< flotte1.ligneArray[i].escadrilleArray.length;++j){ // for each escadrille in flotte1
+            for(var j =0 ; j< flotte1.ligneArray[i].escadrilleArray.length;++j){ // for each escadrille(squadron) in flotte1
                 if ( flotte1.ligneArray[i].escadrilleArray[j].pev!=0) { //  optimisation 
                    
                     
-                    if (flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis == null || flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis.pev ==0 ) { // does it need to take a new cible
+                    if (flotte1.ligneArray[i].escadrilleArray[j].targetedEscEnemis == null || flotte1.ligneArray[i].escadrilleArray[j].targetedEscEnemis.pev ==0 ) { // does it need to take a new targetedEscEnemis (target)
                         
-                        flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis = getEscToAttack(flotte2,Math.ceil(simulationLoop/3)); 
+                        flotte1.ligneArray[i].escadrilleArray[j].targetedEscEnemis = getEscToAttack(flotte2,Math.ceil(simulationLoop/3)); 
                     }
-                    if (flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis != null && flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis.pev !=0 ) {
-                        escaAttack(flotte1.ligneArray[i].escadrilleArray[j],flotte1.ligneArray[i].escadrilleArray[j].cibledEscEnemis,flotte1.tech,flotte2.tech);
+                    if (flotte1.ligneArray[i].escadrilleArray[j].targetedEscEnemis != null && flotte1.ligneArray[i].escadrilleArray[j].targetedEscEnemis.pev !=0 ) {
+                        escaAttack(flotte1.ligneArray[i].escadrilleArray[j],flotte1.ligneArray[i].escadrilleArray[j].targetedEscEnemis,flotte1.tech,flotte2.tech);
                     }
                 }
                
@@ -166,12 +166,12 @@ function simulation(flotte1,flotte2){ // run an iteration of the simualtion.
                     if ( flotte2.ligneArray[i].escadrilleArray[j].pev!=0) {
                         
                         
-                        if (flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis == null || flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis.pev ==0 ) {
+                        if (flotte2.ligneArray[i].escadrilleArray[j].targetedEscEnemis == null || flotte2.ligneArray[i].escadrilleArray[j].targetedEscEnemis.pev ==0 ) {
                             
-                            flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis = getEscToAttack(flotte1,Math.ceil(simulationLoop/3));
+                            flotte2.ligneArray[i].escadrilleArray[j].targetedEscEnemis = getEscToAttack(flotte1,Math.ceil(simulationLoop/3));
                         }
-                        if (flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis != null && flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis.pev !=0 ) {
-                            escaAttack(flotte2.ligneArray[i].escadrilleArray[j],flotte2.ligneArray[i].escadrilleArray[j].cibledEscEnemis,flotte2.tech,flotte1.tech);
+                        if (flotte2.ligneArray[i].escadrilleArray[j].targetedEscEnemis != null && flotte2.ligneArray[i].escadrilleArray[j].targetedEscEnemis.pev !=0 ) {
+                            escaAttack(flotte2.ligneArray[i].escadrilleArray[j],flotte2.ligneArray[i].escadrilleArray[j].targetedEscEnemis,flotte2.tech,flotte1.tech);
                         }
                     }
                    
@@ -211,7 +211,7 @@ function escaAttack(e1,e2,tech,tech2){ // e1 attack e2
         if (e1.pev != 0 && e2.pev !=0) {
            
             for (var j=0; j < e1.spaceShipArray[i].type.cannon.attack.length;++j){// for each spaceShip and for each cannon
-                // this was here where my porbleme was
+                
                 if (e2.pev!=0) {
                     
                     
@@ -277,7 +277,7 @@ function escaAttack(e1,e2,tech,tech2){ // e1 attack e2
         
     }
     */
-    e2.cibledEscEnemis = e1;
+    e2.targetedEscEnemis = e1;
 }
 
 function getDamage(attack,def,tech,tech2){ // get the damage
@@ -296,7 +296,7 @@ function spaceShipAttack(spaceShip1,cannonPos,spaceShip2,tech,tech2){ // spaceSh
     
     var randomNumber = Math.random();
     
-    //it might have a error herre // in fact ther isn't
+    
     
     if (randomNumber < getReachingValue(spaceShip2.type.speed,tech2[spaceShip2.type.typeName]["vitesse"])) {// this is here tha was my real error
         

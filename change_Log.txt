@@ -68,3 +68,7 @@ correction pev Hydre : 92
 
 ajout du bonus de Synelle / Empire 
 ajout de l'option auto plus de détails
+
+
+--
+attention j'ai changer le nom d'une prop cibledEscEnemis=>targetedEscEnemis comme cibled n'est pas très français je l'ai mis en anglais
