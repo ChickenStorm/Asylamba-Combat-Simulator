@@ -9,17 +9,6 @@
 // ==/UserScript==
 
 
-/*function test(){
-    var allSpan = document.getElementsByTagName("span");
-    for(var i in allSpan){
-        if (true) {
-            alert(i);
-            alert(allSpan[i].class);
-        }
-       
-    }
-}*/
-//var d = document.getElementsByClassName("commander full show-army position-1-2");
 var d = document.getElementsByTagName("span")
 function test(){
     
@@ -53,11 +42,4 @@ function test(){
 }
 
 test();
-
-//class="commander full show-army position-1-2"
-//data-army="[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]"
-//commander empty position-2-2
-//className
-//outerHTML : <span class="commander full show-army position-1-2" data-army="[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]"><img src="http://asylamba.cloudapp.net/beta/public/media/map/fleet/army.png" alt="plein"><span class="info">Major <strong>rebelle</strong><br>60 Pev</span></span>
-
 
