@@ -1,6 +1,5 @@
 // ==UserScript==
 // @name         simulator user script
-// @namespace    
 // @version      0.0.0.1
 // @description  simulator user script
 // @author       ChickenStorm
