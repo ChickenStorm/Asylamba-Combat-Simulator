@@ -50,7 +50,7 @@ var attackerFlotte;
 
 
 
-var version = "0.0.12"
+var version = "0.0.13"
 
 //----------------------------------------------------------------------------------------------
 //object declaration
@@ -199,6 +199,8 @@ function initAsylamba_Project_Script(){
     drawTechTable(); // from simulateur_farphique.js
     
     
+    opperationBasedOnUrl();
+    
     drawInterface(); // from simulateur_farphique.js
     
     
@@ -323,37 +325,46 @@ function tableSpaceShipClick(spaceShipTypePos,ev){
     if (ev.shiftKey) {
         numberOfAdding = 10;
     }
-    for (var p = 0; p< numberOfAdding && booHasEnoughtSpace;++p){
-        if (selectedFlotte==0) {
-            if (selectedLigne != -1 && selectedEsc != -1) {
-                if (defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].maxPEV >= defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev + spaceShipType[spaceShipTypePos].pev) {
-                    // if there is enought space 
-                    
-                    defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].spaceShipArray.push(new SpaceShip(spaceShipType[spaceShipTypePos]));
-                    defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev += spaceShipType[spaceShipTypePos].pev;
-                }
-                else{
-                    alert("plus assez de place");
-                    booHasEnoughtSpace = false;
-                }
+    
+    if (selectedFlotte==0) {
+        /*if (selectedLigne != -1 && selectedEsc != -1) {
+            if (defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].maxPEV >= defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev + spaceShipType[spaceShipTypePos].pev) {
+                // if there is enought space 
+                
+                defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].spaceShipArray.push(new SpaceShip(spaceShipType[spaceShipTypePos]));
+                defenderFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev += spaceShipType[spaceShipTypePos].pev;
             }
-        }
-        if (selectedFlotte==1) {
-            if (selectedLigne != -1 && selectedEsc != -1) {
-                if (attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].maxPEV >= attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev + spaceShipType[spaceShipTypePos].pev) {
-                    // if there is enought space 
-                    
-                    attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].spaceShipArray.push(new SpaceShip(spaceShipType[spaceShipTypePos]));
-                    attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev += spaceShipType[spaceShipTypePos].pev;
-                    
-                }
-                else{
-                    alert("plus assez de place");
-                    booHasEnoughtSpace = false;
-                }
+            else{
+                alert("plus assez de place");
+                booHasEnoughtSpace = false;
             }
+        }*/
+        booHasEnoughtSpace = addSchip(numberOfAdding,defenderFlotte,selectedLigne,selectedEsc,spaceShipTypePos);
+        if (! booHasEnoughtSpace){
+            alert("plus assez de place");
         }
     }
+    if (selectedFlotte==1) {
+        /*if (selectedLigne != -1 && selectedEsc != -1) {
+            if (attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].maxPEV >= attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev + spaceShipType[spaceShipTypePos].pev) {
+                // if there is enought space 
+                
+                attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].spaceShipArray.push(new SpaceShip(spaceShipType[spaceShipTypePos]));
+                attackerFlotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev += spaceShipType[spaceShipTypePos].pev;
+                
+            }
+            else{
+                alert("plus assez de place");
+                booHasEnoughtSpace = false;
+            }
+        }*/
+        
+        booHasEnoughtSpace = addSchip(numberOfAdding,attackerFlotte,selectedLigne,selectedEsc,spaceShipTypePos);
+        if (! booHasEnoughtSpace){
+            alert("plus assez de place");
+        }
+    }
+    
     drawInterface();
 }
 
@@ -532,5 +543,102 @@ function setTech(flotte) {
 }
 
 
+function fillFlotte(flotte,input){ // the input is [nb,nb,nb,nb,nb,nb,nb,nb,nb,nb,nb,nb]
+    // ça ne remplis pas les flottes commes elles le sont réelement
+    
+    var inputCopie=[];
+    // copie input
+    for (var i = 0; i< input.length;++i) {
+        inputCopie.push(input[i]);
+    }
+    
+    if (hasSchipToAdd(inputCopie)) { 
+        alert("remplissage automatique: ce-ci ne represente pas la realite !!! ");
+    }
+    
+    var lPos = 0;
+    var ePos = 0;
+    
+    var booStop = false;
+    while(hasSchipToAdd(inputCopie) ){
+        
+        for(var j = inputCopie.length-1 ; j>=0 ; --j){
+            var isTooFullOrNoShipAvailable = false;
+            while(!isTooFullOrNoShipAvailable){
+                if (inputCopie[j]!=0) {
+                    
+                    if (addSchip(1,flotte,lPos,ePos,j)) {
+                        
+                        --inputCopie[j];
+                        
+                    }
+                    else{
+                        isTooFullOrNoShipAvailable = true;
+                    }
+                }else{
+                    isTooFullOrNoShipAvailable = true;
+                }
+                
+            }
+        }
+        ++ePos;
+        if (ePos == flotte.ligneArray[lPos].escadrilleArray.length) {
+            
+            ePos = 0;
+            ++lPos;
+        }
+        if (lPos == flotte.ligneArray.length) {
+            booStop = true;
+        }
+    }
+    
+    
+    
+}
+
+function hasSchipToAdd(array){
+    // it 's from an array ; i dont now how to name this function
+    var s = 0;
+    for(var i in array){
+        s += array[i];
+        if (array[i]<0) {
+            return false;
+        }
+    }
+    if (s>0) {
+        return true;
+    }
+    else{
+        
+        return false;
+        
+    }
+}
+
+function addSchip(numberOfAdding,flotte,lignePos,escPos,spaceShipTypePos){
+    
+    
+    
+    var booHasEnoughtSpace = true;
+    for (var p = 0; p< numberOfAdding && booHasEnoughtSpace;++p){
+        
+        
+        if (lignePos != -1 && escPos != -1) {
+            if (flotte.ligneArray[lignePos].escadrilleArray[escPos].maxPEV >= flotte.ligneArray[lignePos].escadrilleArray[escPos].pev + spaceShipType[spaceShipTypePos].pev) {
+                // if there is enought space 
+                
+                flotte.ligneArray[lignePos].escadrilleArray[escPos].spaceShipArray.push(new SpaceShip(spaceShipType[spaceShipTypePos]));
+                flotte.ligneArray[lignePos].escadrilleArray[escPos].pev += spaceShipType[spaceShipTypePos].pev;
+                
+            }
+            else{
+                //alert("plus assez de place");
+                booHasEnoughtSpace = false;
+            }
+        }
+    
+    }
+    return booHasEnoughtSpace;
+}
 
 
