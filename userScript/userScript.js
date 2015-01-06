@@ -1,12 +1,14 @@
 // ==UserScript==
-// @name         
+// @name         simulator user script
 // @namespace    
 // @version      0.0.0.1
-// @description  
-// @author       
+// @description  simulator user script
+// @author       ChickenStorm
 // @match        http://game.asylamba.com/beta/fleet/view-spyreport*
 // @grant        none
 // ==/UserScript==
+
+
 /*function test(){
     var allSpan = document.getElementsByTagName("span");
     for(var i in allSpan){
