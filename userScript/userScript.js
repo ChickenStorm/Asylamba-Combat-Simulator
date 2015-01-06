@@ -29,7 +29,7 @@ function test(){
             d[i].onclick = function(event){
                 
                 
-                var temp = d[0]["outerHTML"]
+                var temp = this["outerHTML"]
                 
                 //var temp = ""
                 const SEARCH_TEXT = "data-army=\"["
