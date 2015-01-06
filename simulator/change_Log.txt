@@ -72,3 +72,11 @@ ajout de l'option auto plus de détails
 
 --
 attention j'ai changer le nom d'une prop cibledEscEnemis=>targetedEscEnemis comme cibled n'est pas très français je l'ai mis en anglais
+
+
+--
+
+0.0.13
+
+ajout de l'user script 
+le sim prend maintenant des peramètre en url
