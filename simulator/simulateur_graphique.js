@@ -79,7 +79,7 @@ function positionEllementHTMLPage(width){ // position les éllements sur la page
     $("b1").style.top = "270px";
     
     $("resultGeneral").style.left = "600px";
-    $("resultGeneral").style.top = "260px";
+    $("resultGeneral").style.top = "320px";
     //$("resultGeneral").style.width = "600px"
     
     $("di1").style.top  = "190px";
