@@ -80,3 +80,7 @@ attention j'ai changer le nom d'une prop cibledEscEnemis=>targetedEscEnemis comm
 
 ajout de l'user script 
 le sim prend maintenant des peramètre en url
+
+0.0.13.1
+
+changement mineur dans l'affichage

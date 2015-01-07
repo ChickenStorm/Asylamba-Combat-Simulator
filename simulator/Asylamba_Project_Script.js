@@ -44,13 +44,14 @@ var flotteCell =[[]];
 var flotteArray= [];
 
 var spaceShipType = [];
-var sapceShip=[]
+var sapceShip=[];
 var defenderFlotte;
 var attackerFlotte;
 
 
 
-var version = "0.0.13"
+var version = "0.0.13.1";
+var userScriptLastVersion= "0.0.1";
 
 //----------------------------------------------------------------------------------------------
 //object declaration

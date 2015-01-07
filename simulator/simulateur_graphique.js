@@ -63,8 +63,8 @@ function displayTable(arrayToDisapay,arrayStyle) { // ceci prend deux array 2-di
 function positionEllementHTMLPage(width){ // position les éllements sur la page 
     
     
-    $("spaceShipTable").style.left = width-30-750+ "px";
-    $("spaceShipTable").style.top = "120px"
+    $("spaceShipTable").style.left = width-30-750 +"px" ;
+    $("spaceShipTable").style.top = "170px"
     
     $("tech1").style.top = "20px"
     $("tech2").style.top = "570px"
@@ -76,21 +76,37 @@ function positionEllementHTMLPage(width){ // position les éllements sur la page
     $("viewSapceShipEsca").style.left = "500px";
     $("viewSapceShipEsca").style.top = "20px";
     $("b1").style.left = "750px";
-    $("b1").style.top = "220px";
+    $("b1").style.top = "270px";
     
     $("resultGeneral").style.left = "600px";
-    $("resultGeneral").style.top = "250px";
+    $("resultGeneral").style.top = "260px";
     //$("resultGeneral").style.width = "600px"
     
-    $("di1").style.top  = "150px";
+    $("di1").style.top  = "190px";
     $("di1").style.left  = "750px";
-    $("i1").defaultValue = 1000
+    $("i1").defaultValue = 1000;
     $("i1").style.left  = "10px";
     
-    $("generalInfos").style.top = "20px"
-    $("generalInfos").innerHTML = "<p style = 'font-size:  20px;' >Simulateur de combat pour Asylamba. <br>Version "+version+"  <!--<b style='color: red'>FIABILITE EN COUR DE VERIFICATION EN ATTENDANT NE PAS SE FIER. </b>  </p>--><p style='color: blak'> Avertissement : les donn&eacute;e fournies par le simulateur ne sont pas garanties &ecirc;tre juste ni &agrave; jour. </p>"
-
+    $("generalInfos").style.top = "20px";
+    $("generalInfos").innerHTML = "<p style = 'font-size:  20px;' >Simulateur de combat pour Asylamba. <br>Version "+version +"  <!--<b style='color: red'>FIABILITE EN COUR DE VERIFICATION EN ATTENDANT NE PAS SE FIER. </b>  </p>--><p style='color: black' style='display: block;'> Avertissement : les donn&eacute;e fournies par le simulateur ne sont pas garanties &ecirc;tre juste ni &agrave; jour.</p>";
     
+    /*try{
+        
+        if (getVersionUS() == userScriptLastVersion) {
+            $("generalInfos").innerHTML += "user script &agrave; jour."
+        }
+        else{
+            $("generalInfos").innerHTML += "l'user script n'est pas &agrave; jour. T&eacute;l&eacute;chargez le <a href='https://github.com/ChickenStorm/Asylamba-Combat-Simulator/raw/master/userScript/simulator_user_script.user.js'>ici</a>."
+        }
+        
+    }*/
+    
+    $("generalInfos").innerHTML += "<p id='UserScriptMessage'>Vous n'avez pas encore l'user script ou il n'est pas &agrave; jour. T&eacute;l&eacute;chargez le <a href='https://github.com/ChickenStorm/Asylamba-Combat-Simulator/raw/master/userScript/simulator_user_script.user.js'>ici</a>.</p>";
+    
+    
+    
+    
+    //" "
     
 }
 
