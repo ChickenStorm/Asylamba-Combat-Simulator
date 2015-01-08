@@ -33,7 +33,7 @@
 */
 
 
-
+var globalTimoutSaveOption=0;
 
 
 
@@ -90,6 +90,9 @@ function positionEllementHTMLPage(width){ // position les éllements sur la page
     $("generalInfos").style.top = "20px";
     $("generalInfos").innerHTML = "<p style = 'font-size:  20px;' >Simulateur de combat pour Asylamba. <br>Version "+version +"  <!--<b style='color: red'>FIABILITE EN COUR DE VERIFICATION EN ATTENDANT NE PAS SE FIER. </b>  </p>--><p style='color: black' style='display: block;'> Avertissement : les donn&eacute;e fournies par le simulateur ne sont pas garanties &ecirc;tre juste ni &agrave; jour.</p>";
     
+    
+    $("saveOptionDiv").style.top = "1100px"
+    $("saveOptionDiv").style.height = "80px"
     /*try{
         
         if (getVersionUS() == userScriptLastVersion) {
@@ -104,10 +107,79 @@ function positionEllementHTMLPage(width){ // position les éllements sur la page
     $("generalInfos").innerHTML += "<p id='UserScriptMessage'>Vous n'avez pas encore l'user script ou il n'est pas &agrave; jour. T&eacute;l&eacute;chargez le <a href='https://github.com/ChickenStorm/Asylamba-Combat-Simulator/raw/master/userScript/simulator_user_script.user.js'>ici</a>.</p>";
     
     
-    
+    //drawSaveOption();
     
     //" "
     
+}
+
+function drawSaveOptionGeneral(){
+    clearTimeout(globalTimoutSaveOption)
+    $("saveOptionDiv").innerHTML = "<button onclick='saveFlotte(defenderFlotte)'> sauvgarder Flotte en d&eacute;fense </button> "
+    $("saveOptionDiv").innerHTML += "<button onclick='saveFlotte(attackerFlotte)'> sauvgarder Flotte en attaque </button> ";
+    $("saveOptionDiv").innerHTML += "<br><button onclick='showLoadMenu(defenderFlotte)'> charger Flotte en d&eacute;fense </button> ";
+    $("saveOptionDiv").innerHTML += "<button onclick='showLoadMenu(attackerFlotte)'> charger Flotte en attaque </button> ";
+    $("saveOptionDiv").innerHTML += "<br><button onclick='showCookieDeletMenu()'> sumprimer des flottes des cookies </button> ";
+    
+}
+
+
+function showLoadMenu(flotte){
+    
+    if (flotte.id == 0) {
+        var flotteDescritption = "defenderFlotte";
+        
+    }
+    else{
+        var flotteDescritption = "attackerFlotte";
+    }
+    
+    var cText = document.cookie;
+    var cArray = cText.split(";");
+    
+    $("saveOptionDiv").innerHTML ="";
+    
+    var regExpFlotte = new RegExp("^flotte*");
+    
+    for(var i in cArray){
+        
+        var temp = cArray[i].split("=");
+        
+        if (regExpFlotte.test(temp[1])) {
+            
+            $("saveOptionDiv").innerHTML += "<button onclick='loadFlotteFromACookie(\""+temp[0]+"\","+flotteDescritption+");drawSaveOptionGeneral();'> "+temp[0]+" </button>";
+        }
+    }
+    
+    $("saveOptionDiv").innerHTML += "<br> <button onclick='drawSaveOptionGeneral();'> back </button> ";
+    clearTimeout(globalTimoutSaveOption);
+    globalTimoutSaveOption = setTimeout(drawSaveOptionGeneral,10000);
+    
+}
+
+function showCookieDeletMenu(){
+    
+    
+    var cText = document.cookie;
+    var cArray = cText.split(";");
+    
+    $("saveOptionDiv").innerHTML ="";
+    
+    var regExpFlotte = new RegExp("^flotte*");
+    
+    for(var i in cArray){
+        
+        var temp = cArray[i].split("=");
+        
+        if (regExpFlotte.test(temp[1])) {
+            
+            $("saveOptionDiv").innerHTML += "<button onclick='deleteCookie(\""+ temp[0] +"\"); showCookieDeletMenu()'> "+temp[0]+" </button>";
+        }
+    }
+    
+    $("saveOptionDiv").innerHTML += "<br> <button onclick='drawSaveOptionGeneral();'> back </button> ";
+    clearTimeout(globalTimoutSaveOption);
+    globalTimoutSaveOption = setTimeout(drawSaveOptionGeneral,10000);
 }
 
 function drawInterface(){ // utiliser par la plus part des fonction qui modifie l'affichage

@@ -86,3 +86,7 @@ le sim prend maintenant des peramètre en url
 changement mineur dans l'affichage
 
 0.0.13.2 correction d'un boutton qui disparaissait
+
+0.0.14
+
+ajout de la possibilité d'enregistrer des flottes avec des cookies

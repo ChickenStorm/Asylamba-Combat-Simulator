@@ -50,7 +50,7 @@ var attackerFlotte;
 
 
 
-var version = "0.0.13.2";
+var version = "0.0.14";
 var userScriptLastVersion= "0.0.1";
 
 //----------------------------------------------------------------------------------------------
@@ -203,6 +203,7 @@ function initAsylamba_Project_Script(){
     opperationBasedOnUrl();
     
     drawInterface(); // from simulateur_farphique.js
+    drawSaveOptionGeneral();
     
     
     //$("spaceSchipTable").style.backgroundColor = 'white';
@@ -642,4 +643,13 @@ function addSchip(numberOfAdding,flotte,lignePos,escPos,spaceShipTypePos){
     return booHasEnoughtSpace;
 }
 
+function getPosFromShipType(shipType){
+    
+    for(var i in spaceShipType){
+        if (shipType.name == spaceShipType[i].name) {
+            return i;
+        }
+    }
+    return null;
+}
 
