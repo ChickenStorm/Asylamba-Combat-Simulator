@@ -50,7 +50,7 @@ var attackerFlotte;
 
 
 
-var version = "0.0.14";
+var version = "0.0.15";
 var userScriptLastVersion= "0.0.1";
 
 //----------------------------------------------------------------------------------------------
@@ -371,6 +371,39 @@ function tableSpaceShipClick(spaceShipTypePos,ev){
 }
 
 
+function addEnder(){
+    var flotte =  flotteArray[selectedFlotte]
+    
+    flotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].spaceShipArray= []
+    flotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev =0;
+    
+    addSchip(1,flotte,selectedLigne,selectedEsc,7);
+    addSchip(17,flotte,selectedLigne,selectedEsc,2);
+    addSchip(2,flotte,selectedLigne,selectedEsc,0);
+    drawInterface();
+}
+
+function addHyPe() {
+    var flotte =  flotteArray[selectedFlotte]
+    
+    flotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].spaceShipArray= []
+    flotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev =0;
+    
+    addSchip(1,flotte,selectedLigne,selectedEsc,9);
+    addSchip(4,flotte,selectedLigne,selectedEsc,0);
+    drawInterface();
+}
+function addPhPe() {
+    var flotte =  flotteArray[selectedFlotte]
+    
+    flotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].spaceShipArray= []
+    flotte.ligneArray[selectedLigne].escadrilleArray[selectedEsc].pev =0;
+    
+    addSchip(1,flotte,selectedLigne,selectedEsc,11);
+    addSchip(2,flotte,selectedLigne,selectedEsc,0);
+    drawInterface();
+}
+
 
 function removeSpaceShipEsc(pos){
     // remove in the selected esca a schip from pos
@@ -653,3 +686,12 @@ function getPosFromShipType(shipType){
     return null;
 }
 
+function inversFlotte() {
+    
+    var flotteDefenderText = getCookieTextFlotte(defenderFlotte);
+    var flotteAttackerText = getCookieTextFlotte(attackerFlotte);
+    
+    loadFlotteFromText(defenderFlotte,flotteAttackerText);
+    loadFlotteFromText(attackerFlotte,flotteDefenderText);
+    
+}

@@ -63,36 +63,49 @@ function displayTable(arrayToDisapay,arrayStyle) { // ceci prend deux array 2-di
 function positionEllementHTMLPage(width){ // position les éllements sur la page 
     
     
-    $("spaceShipTable").style.left = width-30-750 +"px" ;
-    $("spaceShipTable").style.top = "170px"
     
-    $("tech1").style.top = "20px"
-    $("tech2").style.top = "570px"
-    $("viewFlotte1").style.top = "240px";
+    
+    
+    
+    $("spaceShipTable").style.left = width-30-750 +"px" ;
+    $("spaceShipTable").style.top = "320px"
+    
+    $("tech1").style.top = "320px"
+    $("tech2").style.top = "910px"
+    $("viewFlotte1").style.top = "540px";
     $("viewFlotte1").style.height = "100px";
     //$("viewFlotte1").style.width = w-30-900-100+ "px";
     //$("viewFlotte2").style.width = w-30-900-100+ "px";
-    $("viewFlotte2").style.top = parseInt($("viewFlotte1").style.top) + parseInt($("viewFlotte1").style.height)+440+"px";
-    $("viewSapceShipEsca").style.left = "500px";
-    $("viewSapceShipEsca").style.top = "20px";
+    $("viewFlotte2").style.top = parseInt($("viewFlotte1").style.top) + parseInt($("viewFlotte1").style.height)+500+"px";
+    $("viewSapceShipEsca").style.left = "480px";
+    $("viewSapceShipEsca").style.top = "320px";
     $("b1").style.left = "750px";
-    $("b1").style.top = "270px";
+    $("b1").style.top = "370px";
     
     $("resultGeneral").style.left = "600px";
-    $("resultGeneral").style.top = "320px";
+    $("resultGeneral").style.top = "420px";
     //$("resultGeneral").style.width = "600px"
     
-    $("di1").style.top  = "190px";
+    $("di1").style.top  = "290px";
     $("di1").style.left  = "750px";
     $("i1").defaultValue = 1000;
     $("i1").style.left  = "10px";
     
     $("generalInfos").style.top = "20px";
+    $("generalInfos").style.left = "300px";
     $("generalInfos").innerHTML = "<p style = 'font-size:  20px;' >Simulateur de combat pour Asylamba. <br>Version "+version +"  <!--<b style='color: red'>FIABILITE EN COUR DE VERIFICATION EN ATTENDANT NE PAS SE FIER. </b>  </p>--><p style='color: black' style='display: block;'> Avertissement : les donn&eacute;e fournies par le simulateur ne sont pas garanties &ecirc;tre juste ni &agrave; jour.</p>";
     
     
-    $("saveOptionDiv").style.top = "1100px"
+    $("saveOptionDiv").style.top = "1460px"
     $("saveOptionDiv").style.height = "80px"
+    
+    $("author").style.left = "800px"
+    //$("author").style.top = "900px"
+    $("author").style.width = "800px" 
+    $("author").innerHTML = "chicken"
+    
+    $("author").innerHTML = "made by <div style='font: 7px Courier New'>"+chickenStormTextArrax.join("<br>")+"</div>"
+    //$("author").style.font="7px Courier New"
     /*try{
         
         if (getVersionUS() == userScriptLastVersion) {
@@ -208,7 +221,7 @@ function drawInterface(){ // utiliser par la plus part des fonction qui modifie 
         tempCheckedValue2=$("hasKBonusF2").checked;
     }*/
     //                                                                                                        <button onclick='swapFlotte()'>swap flottes </button>
-    $("viewFlotte1").innerHTML = "Cliquez sur une casse pour choisir l'escadrille. <br>flotte en d&eacute;fense. <br>"+ HTMLCodeFlotte(defenderFlotte);
+    $("viewFlotte1").innerHTML = "<button onclick='inversFlotte()'> inverser les flottes</button><br>Cliquez sur une casse pour choisir l'escadrille. <br>flotte en d&eacute;fense. <br>"+ HTMLCodeFlotte(defenderFlotte);
     
     $("viewFlotte2").innerHTML = "flotte en attaque.<br>"+HTMLCodeFlotte(attackerFlotte);
     
@@ -257,8 +270,9 @@ function drawSpaceShipTable(){ // dessin les tableau des types de vaisseau
             styleArray[j].push("width : 70px;text-align: center;' onclick ='tableSpaceShipClick(" +i+""  + ",event)");
             
         }
+        
         //alert(spaceShipType[i].name)
-        styleArray[j][1] = "width : 210px;text-align: center;' onclick ='tableSpaceShipClick(" +i+""  + ", event)";
+        styleArray[j][1] = "width : 210px;text-align: center;' onclick ='tableSpaceShipClick(" +i+""  + ",event)";
         //styleArray[j].push("width : 100px;text-align: center;","width : 210px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;");
         
         
@@ -277,7 +291,7 @@ function drawSpaceShipTable(){ // dessin les tableau des types de vaisseau
         arrayToDraw[j].push(spaceShipType[i].defense,spaceShipType[i].speed,spaceShipType[i].maxHull,spaceShipType[i].pev,spaceShipType[i].typeName)
     }
     arrayToDraw.push(["<button onclick='addNewType();'>ajouter un nouveau type</button> (m&ecirc;me format qu'au dessus et &eacute;vitez les accents dans le nom)"]);
-    styleArray.push(["text-align:center;' colspan='7"]);
+    styleArray.push(["text-align:center;' colspan='7'; onclick ='tableSpaceShipClick(" +0+""  + ",event)"]);
     
     /*
      *TODO fair entrée nouveau type
@@ -285,6 +299,22 @@ function drawSpaceShipTable(){ // dessin les tableau des types de vaisseau
     
     arrayToDraw.push(["<input style='width : 93px;' id='newShipInput1'>","<input style='width : 200px;' id='newShipInput2'>","<input style='width : 63px;' id='newShipInput3'>","<input style='width : 63px;' id='newShipInput4'>","<input style='width : 63px;' id='newShipInput5'> ","<input style='width : 63px;' id='newShipInput6'> ","<input style='width : 63px;' id='newShipInput7'> "]);
     styleArray.push(["width : 70px;"]);
+    
+    arrayToDraw.push(["------------- Preset -------------"]);
+    styleArray.push(["text-align:center;' colspan='7"]);
+    
+    arrayToDraw.push(["ender","1cy + 17 ch + 2 pe"]);
+    styleArray.push(["text-align:center;' colspan='3'; onclick = 'addEnder()","text-align:center;' colspan='4'; onclick = 'addEnder()"]);
+    
+    
+    
+    arrayToDraw.push(["hydre (p&eacute;gase) ","1 hy + 4 pe"]);
+    styleArray.push(["text-align:center;' colspan='3'; onclick = 'addHyPe()","text-align:center;' colspan='4'; onclick = 'addHyPe()"]);
+    
+    arrayToDraw.push(["Ph&eacute;nix (p&eacute;gase)","1 ph +  pe"]);
+    styleArray.push(["text-align:center;' colspan='3'; onclick = 'addPhPe()","text-align:center;' colspan='4'; onclick = 'addPhPe()"]);
+    
+    
     
     $("spaceShipTable").innerHTML = "<p>Cliquez sur une des lignes pour ajouter le vaisseau (shift/maj ajouter 10 vaisseaux). Cliquez sur le tabeau au dessu du tabelau de flotte pour supprimer un vaisseau.<\p>";
     $("spaceShipTable").innerHTML += displayTable(arrayToDraw,styleArray);

@@ -1,11 +1,73 @@
 
+function loadFlotteFromText(flotte,cText){ // not sure if it works
+    
+    for (var i in flotte.ligneArray){
+        for (var j in flotte.ligneArray[i].escadrilleArray){
+            
+            flotte.ligneArray[i].escadrilleArray[j].spaceShipArray = [];
+            flotte.ligneArray[i].escadrilleArray[j].pev = 0;
+            
+            
+            
+        }
+        
+    }
+    //var cArray = cText.split("&"); // useless
+    
+    
+    
+    
+    /*
+     *
+     * TODO verfier que l'on ne fasse pas de segmentation fault
+     *
+     */
+    
+    var cArray2 = cText.split("*");
+    for(var i in cArray2){
+        var cArray3 = cArray2[i].split("#");
+        for(var j in cArray3){
+            var cArray4 = cArray3[j].split(",")
+            for(var k = 0; k < cArray4.length-  1;++k){
+                
+                addSchip(1,flotte,i,j,cArray4[k]);
+                
+            }
+            
+        }
+    }
+
+    
+    
+    drawInterface();
+}
+
+function getCookieTextFlotte(flotte){ 
+    var cText="";
+    for (var i in flotte.ligneArray){
+        for (var j in flotte.ligneArray[i].escadrilleArray){
+            
+            for (var k in flotte.ligneArray[i].escadrilleArray[j].spaceShipArray){
+                
+                cText += getPosFromShipType(flotte.ligneArray[i].escadrilleArray[j].spaceShipArray[k].type) + ",";
+                
+            }
+            
+            cText += "#";
+            
+        }
+        cText += "*";
+    }
+    return cText;
+}
+
 function saveFlotte(flotte) {
     var input = prompt("entree un nom");
     var cText = "flotte&";
     
     
     if (input != "" && input!=null) {
-        for (var i in flotte.ligneArray){
+        /*for (var i in flotte.ligneArray){
             for (var j in flotte.ligneArray[i].escadrilleArray){
                 
                 for (var k in flotte.ligneArray[i].escadrilleArray[j].spaceShipArray){
@@ -18,7 +80,8 @@ function saveFlotte(flotte) {
                 
             }
             cText += "*";
-        }
+        }*/
+        cText += getCookieTextFlotte(flotte);
         const YEARS = 1000;
         const DAY_PER_YEAR = 365.2425 // in Gregorian calendar the real value is 365,25696 day 
         setCookie(input,cText,DAY_PER_YEAR*YEARS); // i think that it's enougth time
