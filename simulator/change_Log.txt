@@ -90,3 +90,8 @@ changement mineur dans l'affichage
 0.0.14
 
 ajout de la possibilité d'enregistrer des flottes avec des cookies
+
+0.0.15
+ajout de preset
+ajout de signature
+bouton pour inverser les flottes
