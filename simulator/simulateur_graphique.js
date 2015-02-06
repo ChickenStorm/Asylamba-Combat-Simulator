@@ -265,30 +265,71 @@ function drawSpaceShipTable(){ // dessin les tableau des types de vaisseau
         arrayToDraw.push([]);
         styleArray.push([]);
         ++j;
-        for (var l=0; l<7;l++){
+        if (shipIdModification != j) {
             
-            styleArray[j].push("width : 70px;text-align: center;' onclick ='tableSpaceShipClick(" +i+""  + ",event)");
             
-        }
-        
-        //alert(spaceShipType[i].name)
-        styleArray[j][1] = "width : 210px;text-align: center;' onclick ='tableSpaceShipClick(" +i+""  + ",event)";
-        //styleArray[j].push("width : 100px;text-align: center;","width : 210px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;");
-        
-        
-        arrayToDraw[j].push(spaceShipType[i].name);
-        
-        var attackText="";
-        for (var k =0; k < spaceShipType[i].cannon.attack.length; k++ ) {
-            attackText +=  spaceShipType[i].cannon.attack[k]
-            if (spaceShipType[i].cannon.number[k] !=1) {
-                attackText += " * " + spaceShipType[i].cannon.number[k]
+            
+            for (var l=0; l<8;l++){
+                
+                styleArray[j].push("width : 70px;text-align: center;' onclick ='tableSpaceShipClick(" +i+""  + ",event)");
+                
             }
-            attackText+=" + "
+            
+            //alert(spaceShipType[i].name)
+            styleArray[j][1] = "width : 210px;text-align: center;' onclick ='tableSpaceShipClick(" +i+""  + ",event)";
+            //styleArray[j].push("width : 100px;text-align: center;","width : 210px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;");
+            styleArray[j][7] = "width : 70px;text-align: center;"
+            
+            
+            arrayToDraw[j].push(spaceShipType[i].name);
+            
+            var attackText="";
+            for (var k =0; k < spaceShipType[i].cannon.attack.length; k++ ) {
+                attackText +=  spaceShipType[i].cannon.attack[k]
+                if (spaceShipType[i].cannon.number[k] !=1) {
+                    attackText += " * " + spaceShipType[i].cannon.number[k]
+                }
+                attackText+=" + "
+            }
+            attackText = attackText.substring(0,attackText.length-2)
+            arrayToDraw[j].push(attackText);
+            arrayToDraw[j].push(spaceShipType[i].defense,spaceShipType[i].speed,spaceShipType[i].maxHull,spaceShipType[i].pev,spaceShipType[i].typeName)
+            
+            arrayToDraw[j].push("<button onclick='modifiAShipButton("+(j)+")'> modifier </button>");
         }
-        attackText = attackText.substring(0,attackText.length-2)
-        arrayToDraw[j].push(attackText);
-        arrayToDraw[j].push(spaceShipType[i].defense,spaceShipType[i].speed,spaceShipType[i].maxHull,spaceShipType[i].pev,spaceShipType[i].typeName)
+        else{
+            
+            
+            
+            for (var l=0; l<8;l++){
+                
+                styleArray[j].push("width : 70px;text-align: center;");
+                
+            }
+            
+            //alert(spaceShipType[i].name)
+            styleArray[j][1] = "width : 210px;text-align: center;";
+            //styleArray[j].push("width : 100px;text-align: center;","width : 210px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;","width : 100px;text-align: center;");
+            styleArray[j][7] = "width : 70px;text-align: center;"
+            
+            
+            arrayToDraw[j].push("<input id='inMod1' value = '"+spaceShipType[i].name+"' style = 'width : 70px'>");
+            
+            var attackText="";
+            for (var k =0; k < spaceShipType[i].cannon.attack.length; k++ ) {
+                attackText +=  spaceShipType[i].cannon.attack[k]
+                if (spaceShipType[i].cannon.number[k] !=1) {
+                    attackText += " * " + spaceShipType[i].cannon.number[k]
+                }
+                attackText+=" + "
+            }
+            attackText = attackText.substring(0,attackText.length-2)
+            
+            arrayToDraw[j].push("<input id='inMod2' value = '"+attackText+"' style = 'width : 210px'>");
+            arrayToDraw[j].push("<input id='inMod3' value = '"+spaceShipType[i].defense+"' style = 'width : 70px'>","<input id='inMod4' value = '"+spaceShipType[i].speed+"' style = 'width : 70px'>","<input id='inMod5' value = '"+spaceShipType[i].maxHull+"' style = 'width : 70px'>","<input id='inMod6' value = '"+spaceShipType[i].pev+"' style = 'width : 70px'>",spaceShipType[i].typeName)
+            
+            arrayToDraw[j].push("<button onclick='saveAModif()'> sauvgarder </button>");
+        }
     }
     arrayToDraw.push(["<button onclick='addNewType();'>ajouter un nouveau type</button> (m&ecirc;me format qu'au dessus et &eacute;vitez les accents dans le nom)"]);
     styleArray.push(["text-align:center;' colspan='7'; onclick ='tableSpaceShipClick(" +0+""  + ",event)"]);
@@ -296,8 +337,8 @@ function drawSpaceShipTable(){ // dessin les tableau des types de vaisseau
     /*
      *TODO fair entrée nouveau type
      */
-    
-    arrayToDraw.push(["<input style='width : 93px;' id='newShipInput1'>","<input style='width : 200px;' id='newShipInput2'>","<input style='width : 63px;' id='newShipInput3'>","<input style='width : 63px;' id='newShipInput4'>","<input style='width : 63px;' id='newShipInput5'> ","<input style='width : 63px;' id='newShipInput6'> ","<input style='width : 63px;' id='newShipInput7'> "]);
+    var tempTextSelect = "<select style='width : 70px;' id='newShipInput7'>  <option value='Chasseur'>Chasseur</option> <option value='Corvette'>Corvette</option> <option value='Fregate'> Fregate</option> <option value='Destroyer'> Destroyer</option> <option value='Croiseur'> Croiseur</option></select> "
+    arrayToDraw.push(["<input style='width : 93px;' id='newShipInput1'>","<input style='width : 200px;' id='newShipInput2'>","<input style='width : 63px;' id='newShipInput3'>","<input style='width : 63px;' id='newShipInput4'>","<input style='width : 63px;' id='newShipInput5'> ","<input style='width : 63px;' id='newShipInput6'> ",tempTextSelect]);
     styleArray.push(["width : 70px;"]);
     
     arrayToDraw.push(["------------- Preset -------------"]);

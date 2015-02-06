@@ -95,3 +95,6 @@ ajout de la possibilité d'enregistrer des flottes avec des cookies
 ajout de preset
 ajout de signature
 bouton pour inverser les flottes
+
+0.0.16
+@Liador @ Sojiro => ajout de bouton modifier

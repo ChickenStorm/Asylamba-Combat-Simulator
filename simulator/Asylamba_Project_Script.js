@@ -48,9 +48,10 @@ var sapceShip=[];
 var defenderFlotte;
 var attackerFlotte;
 
+var shipIdModification = -1; // -1 means none
 
 
-var version = "0.0.15";
+var version = "0.0.16";
 var userScriptLastVersion= "0.0.1";
 
 //----------------------------------------------------------------------------------------------
@@ -694,4 +695,103 @@ function inversFlotte() {
     loadFlotteFromText(defenderFlotte,flotteAttackerText);
     loadFlotteFromText(attackerFlotte,flotteDefenderText);
     
+}
+
+function modifiAShipButton(shipId){
+    shipIdModification = shipId;
+    drawSpaceShipTable();
+}
+
+function saveAModif(){
+    try {
+        
+        //var input2 = "";
+        
+        var input1 = $("inMod1").value;
+        var input2 = $("inMod2").value;
+        var input3 = parseInt($("inMod3").value);
+        var input4 = parseInt($("inMod4").value);
+        var input5 = parseInt($("inMod5").value);
+        var input6 = parseInt($("inMod6").value);
+        //var input7 = ($("newShipInput7").value);
+        
+        var j =0; // use ???
+        
+        
+        for (var i in spaceShipType){
+            if (spaceShipType[i].name == input1) {
+                throw "le type ne peut pas porter un nom deja existant";
+            }
+        }
+        
+        if (isNaN(input3) || input3<=0) {
+            throw "mauvaise entee un nombre est attendu";
+        }
+        
+        if (isNaN(input4) || input4<=0) {
+            throw "mauvaise entee un nombre est attendu";
+        }
+        if (isNaN(input5) || input5<=0) {
+            throw "mauvaise entee un nombre est attendu";
+        }
+        if (isNaN(input6) || input6<=0) {
+            throw "mauvaise entee un nombre est attendu";
+        }
+        /*if (input7 != "Chasseur" && input7 != "Corvette" && input7 != "Fregate" && input7 != "Destroyer" && input7 != "Croiseur" ) {
+            throw "le type doit etre soit Chasseur, Corvette, Fregate (je sais pour les acents mais pour des raison d'encodage ils ne peuvent pas etre comme entre au clavier), Destroyer soit Croiseur";
+        }*/
+        
+        
+        input2 = input2.replace(" ","");
+        //alert(input2);
+        var tableTemp = input2.split('+');
+        var tableTemp2 =[];
+        var attakArray = [];
+        var numberArray = [];
+        
+        for (var i=0;i< tableTemp.length ;++i){
+            tableTemp2.push(tableTemp[i].split('*'))
+            if (tableTemp2[i].length == 1) {
+                
+                tableTemp2[i].push(1);
+            }
+            if (tableTemp2[i].length != 2){
+                
+                throw "mauvaise entree pour l'attaque";
+                
+            }
+            else{
+                for (var j in tableTemp2[i]){
+                    tableTemp2[i][j] = parseInt(tableTemp2[i][j]);
+                    if (isNaN(tableTemp2[i][j]) || tableTemp2[i][j]<=0) {
+                        alert((tableTemp2[i][j]));
+                        throw "mauvaise entree pour l'attaque";
+                    }
+                    
+                    
+                }
+                attakArray.push(tableTemp2[i][0]);
+                numberArray.push(tableTemp2[i][1]);
+            }
+            
+            
+            
+            
+            
+            
+        }
+        //alert(shipIdModification)
+        spaceShipType[shipIdModification-1].cannon = new Cannon(attakArray,numberArray);
+        spaceShipType[shipIdModification-1].defense = input3;
+        spaceShipType[shipIdModification-1].speed = input4;
+        spaceShipType[shipIdModification-1].maxHull = input5;
+        spaceShipType[shipIdModification-1].pev = input6;
+        shipIdModification = -1;
+        //spaceShipType.push(new SpaceShipType(input1,new Cannon(attakArray,numberArray),input3,input4,input5,input6,input7));
+        drawInterface();
+        
+        
+    } catch(e) {
+        alert(e);
+    }
 }
