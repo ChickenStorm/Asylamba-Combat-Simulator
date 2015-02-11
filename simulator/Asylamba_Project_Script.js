@@ -51,7 +51,7 @@ var attackerFlotte;
 var shipIdModification = -1; // -1 means none
 
 
-var version = "0.0.16";
+var version = "0.0.16.1";
 var userScriptLastVersion= "0.0.1";
 
 //----------------------------------------------------------------------------------------------
@@ -133,7 +133,7 @@ function initSpaceShipType(){
     spaceShipType.push(new SpaceShipType("Satyre",new Cannon([6],[1]),5,195,32,3,"Chasseur"));
     spaceShipType.push(new SpaceShipType("Chim&egrave;re",new Cannon([8],[2]),3,195,26,3,"Chasseur"));
     
-    spaceShipType.push(new SpaceShipType("Si&egrave;rne",new Cannon([20],[1]),6,175,60,6,"Corvette"));
+    spaceShipType.push(new SpaceShipType("Sir&egrave;ne",new Cannon([20],[1]),6,175,60,6,"Corvette"));
     spaceShipType.push(new SpaceShipType("Dryade",new Cannon([30],[1]),10,160,60,7,"Corvette"));
     spaceShipType.push(new SpaceShipType("M&eacute;duse",new Cannon([8,40],[2,1]),8,170,75,10,"Corvette"));
     
@@ -707,7 +707,7 @@ function saveAModif(){
         
         //var input2 = "";
         
-        var input1 = $("inMod1").value;
+        //var input1 = $("inMod1").value;
         var input2 = $("inMod2").value;
         var input3 = parseInt($("inMod3").value);
         var input4 = parseInt($("inMod4").value);
@@ -718,11 +718,11 @@ function saveAModif(){
         var j =0; // use ???
         
         
-        for (var i in spaceShipType){
+        /*for (var i in spaceShipType){
             if (spaceShipType[i].name == input1) {
                 throw "le type ne peut pas porter un nom deja existant";
             }
-        }
+        }*/
         
         if (isNaN(input3) || input3<=0) {
             throw "mauvaise entee un nombre est attendu";

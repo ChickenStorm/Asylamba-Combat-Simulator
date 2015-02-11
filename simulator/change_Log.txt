@@ -98,3 +98,8 @@ bouton pour inverser les flottes
 
 0.0.16
 @Liador @ Sojiro => ajout de bouton modifier
+
+0.0.16.1
+
+correction orthographique
+le nom peu pas être modifier et plus le bug du nom le même lors de la modification

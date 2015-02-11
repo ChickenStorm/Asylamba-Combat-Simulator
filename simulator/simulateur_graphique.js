@@ -313,7 +313,8 @@ function drawSpaceShipTable(){ // dessin les tableau des types de vaisseau
             styleArray[j][7] = "width : 70px;text-align: center;"
             
             
-            arrayToDraw[j].push("<input id='inMod1' value = '"+spaceShipType[i].name+"' style = 'width : 70px'>");
+            //arrayToDraw[j].push("<input id='inMod1' value = '"+spaceShipType[i].name+"' style = 'width : 70px'>");
+            arrayToDraw[j].push(spaceShipType[i].name);
             
             var attackText="";
             for (var k =0; k < spaceShipType[i].cannon.attack.length; k++ ) {
@@ -328,7 +329,7 @@ function drawSpaceShipTable(){ // dessin les tableau des types de vaisseau
             arrayToDraw[j].push("<input id='inMod2' value = '"+attackText+"' style = 'width : 210px'>");
             arrayToDraw[j].push("<input id='inMod3' value = '"+spaceShipType[i].defense+"' style = 'width : 70px'>","<input id='inMod4' value = '"+spaceShipType[i].speed+"' style = 'width : 70px'>","<input id='inMod5' value = '"+spaceShipType[i].maxHull+"' style = 'width : 70px'>","<input id='inMod6' value = '"+spaceShipType[i].pev+"' style = 'width : 70px'>",spaceShipType[i].typeName)
             
-            arrayToDraw[j].push("<button onclick='saveAModif()'> sauvgarder </button>");
+            arrayToDraw[j].push("<button onclick='saveAModif()'> sauvegarder </button>");
         }
     }
     arrayToDraw.push(["<button onclick='addNewType();'>ajouter un nouveau type</button> (m&ecirc;me format qu'au dessus et &eacute;vitez les accents dans le nom)"]);
