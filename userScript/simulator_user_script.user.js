@@ -4,14 +4,23 @@
 // @description  simulator user script
 // @author       ChickenStorm
 // @match        http://game.asylamba.com/beta/fleet/view-spyreport*
+// @match        http://game.asylamba.com/s6/fleet/view-spyreport*
 // @match        https://dl.dropboxusercontent.com/u/110049848/Projecet_script_public/*
 // @grant        none
 // ==/UserScript==
 
-var versionUserScript = "0.0.1";
+var versionUserScript = "0.0.2";
 
 var d = document.getElementsByTagName("span");
-function setOnClickFunction(){
+function setOnClickFunction(decalage){
+    
+    var decString ="";
+    
+    for (var i=0;i< decalage;++i){
+        decString+="0,";
+        
+        
+    }
     
     var regExp = new RegExp("^commander full show*");
     
@@ -35,7 +44,7 @@ function setOnClickFunction(){
                
                 var pos2 = temp.indexOf("]\">");
                 temp = temp.substring(0,pos2);
-                window.open("https://dl.dropboxusercontent.com/u/110049848/Projecet_script_public/Asylamba_project_online_launcher.html?d=" + temp +";");
+                window.open("https://dl.dropboxusercontent.com/u/110049848/Projecet_script_public/Asylamba_project_online_launcher.html?d=" +decString+ temp +";");
                 //**********
                
             };
@@ -79,11 +88,16 @@ function messageForSimulator(){
 //##############################################################################################################################################################################
 
 
-var regExpUrlAsylamba = new RegExp("^http://game.asylamba.com/beta/fleet/view-spyreport*");
+var regExpUrlAsylambaBeta1 = new RegExp("(^http://game.asylamba.com/beta/fleet/view-spyreport*)");
+var regExpUrlAsylambaBeta2 = new RegExp("(^http://game.asylamba.com/s6/fleet/view-spyreport*)") 
 var regExpUrlSimulator = new RegExp("^https://dl.dropboxusercontent.com/u/110049848/Projecet_script_public/*");
 
-if (regExpUrlAsylamba.test(window.location.href)) {
-    setOnClickFunction();
+if (regExpUrlAsylambaBeta1.test(window.location.href)) {
+    setOnClickFunction(12);
+}
+else if (regExpUrlAsylambaBeta2.test(window.location.href)){
+    setOnClickFunction(0);
+    
 }
 else if (regExpUrlSimulator.test(window.location.href)) {
     //messageForSimulator();

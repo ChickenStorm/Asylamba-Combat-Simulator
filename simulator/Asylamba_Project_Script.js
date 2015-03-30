@@ -51,8 +51,8 @@ var attackerFlotte;
 var shipIdModification = -1; // -1 means none
 
 
-var version = "0.0.16.1";
-var userScriptLastVersion= "0.0.1";
+var version = "0.0.17";
+var userScriptLastVersion= "0.0.2";
 
 //----------------------------------------------------------------------------------------------
 //object declaration
@@ -129,22 +129,40 @@ function Tech(){
 
 function initSpaceShipType(){
     //alert(getDamage(20,50))
-    spaceShipType.push(new SpaceShipType("P&eacute;gase",new Cannon([5],[1]),2,200,26,2,"Chasseur"));
-    spaceShipType.push(new SpaceShipType("Satyre",new Cannon([6],[1]),5,195,32,3,"Chasseur"));
-    spaceShipType.push(new SpaceShipType("Chim&egrave;re",new Cannon([8],[2]),3,195,26,3,"Chasseur"));
+    spaceShipType.push(new SpaceShipType("P&eacute;gase",new Cannon([5],[1]),1,195,26,2,"Chasseur",2980,625));
+    spaceShipType.push(new SpaceShipType("Satyre",new Cannon([7],[1]),5,190,33,3,"Chasseur",3860,1500));
+    spaceShipType.push(new SpaceShipType("Chim&egrave;re",new Cannon([6],[2]),3,195,26,3,"Chasseur",4220,950));
     
-    spaceShipType.push(new SpaceShipType("Sir&egrave;ne",new Cannon([20],[1]),6,175,60,6,"Corvette"));
-    spaceShipType.push(new SpaceShipType("Dryade",new Cannon([30],[1]),10,160,60,7,"Corvette"));
-    spaceShipType.push(new SpaceShipType("M&eacute;duse",new Cannon([8,40],[2,1]),8,170,75,10,"Corvette"));
+    spaceShipType.push(new SpaceShipType("Sir&egrave;ne",new Cannon([20,2],[1,2]),6,190,65,5,"Corvette",7120,1900));
+    spaceShipType.push(new SpaceShipType("Dryade",new Cannon([30],[1]),23,165,90,7,"Corvette",8350,2750));
+    spaceShipType.push(new SpaceShipType("M&eacute;duse",new Cannon([20,7,12],[1,3,4]),8,145,75,9,"Corvette",15300,3200));
     
-    spaceShipType.push(new SpaceShipType("Griffon",new Cannon([20],[4]),50,110,300,25,"Fregate"));
-    spaceShipType.push(new SpaceShipType("Cyclope",new Cannon([225],[1]),40,90,320,45,"Fregate"));
+    spaceShipType.push(new SpaceShipType("Griffon",new Cannon([15],[4]),40,100,250,23,"Fregate",40000,7800));
+    spaceShipType.push(new SpaceShipType("Cyclope",new Cannon([225],[1]),40,90,320,45,"Fregate",80000,14000));
     
-    spaceShipType.push(new SpaceShipType("Minotaure",new Cannon([50,30],[3,1]),100,88,1000,90,"Destroyer"));
-    spaceShipType.push(new SpaceShipType("Hydre",new Cannon([25],[20]),100,80,1100,92,"Destroyer"));
+    spaceShipType.push(new SpaceShipType("Minotaure",new Cannon([35,10,25],[4,4,1]),120,88,1300,70,"Destroyer",112000,28000));
+    spaceShipType.push(new SpaceShipType("Hydre",new Cannon([21],[20]),100,75,1050,86,"Destroyer",143000,28000));
     
-    spaceShipType.push(new SpaceShipType("Cerb&egrave;re",new Cannon([30,80,175],[4,1,1]),120,70,1220,94,"Croiseur"));
-    spaceShipType.push(new SpaceShipType("Ph&eacute;nix",new Cannon([20,50,80,200],[4,2,2,1]),150,50,1300,96,"Croiseur"));
+    spaceShipType.push(new SpaceShipType("Cerb&egrave;re",new Cannon([25,50,6,175],[4,2,3,1]),135,80,1220,82,"Croiseur",208000,29000));
+    spaceShipType.push(new SpaceShipType("Ph&eacute;nix",new Cannon([25,50,6,200],[4,4,3,1]),150,75,1350,84,"Croiseur",300000,30000));
+    
+    
+    spaceShipType.push(new SpaceShipType("P&eacute;gase beta I",new Cannon([5],[1]),2,200,26,2,"Chasseur"));
+    spaceShipType.push(new SpaceShipType("Satyre beta I",new Cannon([6],[1]),5,195,32,3,"Chasseur"));
+    spaceShipType.push(new SpaceShipType("Chim&egrave;re beta I",new Cannon([8],[2]),3,195,26,3,"Chasseur"));
+    
+    spaceShipType.push(new SpaceShipType("Sir&egrave;ne beta I",new Cannon([20],[1]),6,175,60,6,"Corvette"));
+    spaceShipType.push(new SpaceShipType("Dryade beta I",new Cannon([30],[1]),10,160,60,7,"Corvette"));
+    spaceShipType.push(new SpaceShipType("M&eacute;duse beta I",new Cannon([8,40],[2,1]),8,170,75,10,"Corvette"));
+    
+    spaceShipType.push(new SpaceShipType("Griffon beta I",new Cannon([20],[4]),50,110,300,25,"Fregate"));
+    spaceShipType.push(new SpaceShipType("Cyclope beta I",new Cannon([225],[1]),40,90,320,45,"Fregate"));
+    
+    spaceShipType.push(new SpaceShipType("Minotaure beta I",new Cannon([50,30],[3,1]),100,88,1000,90,"Destroyer"));
+    spaceShipType.push(new SpaceShipType("Hydre beta I",new Cannon([25],[20]),100,80,1100,92,"Destroyer"));
+    
+    spaceShipType.push(new SpaceShipType("Cerb&egrave;re beta I",new Cannon([30,80,175],[4,1,1]),120,70,1220,94,"Croiseur"));
+    spaceShipType.push(new SpaceShipType("Ph&eacute;nix beta I",new Cannon([20,50,80,200],[4,2,2,1]),150,50,1300,96,"Croiseur"));
     
 }
 
@@ -552,7 +570,7 @@ function setTech(flotte) {
                     flotte.tech[LISTE_OF_SHIP[i]][LISTE_OF_TECH_TYPE[j]] = value*0.03;
                 }
                 else{
-                flotte.tech[LISTE_OF_SHIP[i]][LISTE_OF_TECH_TYPE[j]] = value*0.02;
+                flotte.tech[LISTE_OF_SHIP[i]][LISTE_OF_TECH_TYPE[j]] = value*0.03;
                 }
             }
         }
