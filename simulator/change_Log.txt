@@ -103,3 +103,6 @@ bouton pour inverser les flottes
 
 correction orthographique
 le nom peu pas être modifier et plus le bug du nom le même lors de la modification
+
+0.0.17.1
+modif du minotaur + avertiseemnt excés de sim sojiro

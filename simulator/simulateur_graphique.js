@@ -93,7 +93,7 @@ function positionEllementHTMLPage(width){ // position les éllements sur la page
     
     $("generalInfos").style.top = "20px";
     $("generalInfos").style.left = "300px";
-    $("generalInfos").innerHTML = "<p style = 'font-size:  20px;' >Simulateur de combat pour Asylamba. <br>Version "+version +"  <!--<b style='color: red'>FIABILITE EN COUR DE VERIFICATION EN ATTENDANT NE PAS SE FIER. </b>  </p>--><p style='color: black' style='display: block;'> Avertissement : les donn&eacute;e fournies par le simulateur ne sont pas garanties &ecirc;tre juste ni &agrave; jour.</p>";
+    $("generalInfos").innerHTML = "<p style = 'font-size:  20px;' >Simulateur de combat pour Asylamba. <br>Version "+version +"  <!--<b style='color: red'>FIABILITE EN COUR DE VERIFICATION EN ATTENDANT NE PAS SE FIER. </b>  </p>--><p style='color: black' style='display: block;'> Avertissement : les donn&eacute;e fournies par le simulateur ne sont pas garanties &ecirc;tre juste ni &agrave; jour.<br> L'exc&egrave;s de simulateur peut nuir &agrave; la sant&eacute; (regard&eacute; Sojiro)</p>";
     
     
     $("saveOptionDiv").style.top = "1460px"
