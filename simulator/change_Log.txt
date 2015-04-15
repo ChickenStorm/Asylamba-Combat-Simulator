@@ -106,3 +106,5 @@ le nom peu pas être modifier et plus le bug du nom le même lors de la modificati
 
 0.0.17.1
 modif du minotaur + avertiseemnt excés de sim sojiro
+0.0.17.2
+correction des stats mino

@@ -51,7 +51,7 @@ var attackerFlotte;
 var shipIdModification = -1; // -1 means none
 
 
-var version = "0.0.17.1";
+var version = "0.0.17.2";
 var userScriptLastVersion= "0.0.2";
 
 //----------------------------------------------------------------------------------------------
@@ -140,7 +140,7 @@ function initSpaceShipType(){
     spaceShipType.push(new SpaceShipType("Griffon",new Cannon([15],[4]),40,100,250,23,"Fregate",40000,7800));
     spaceShipType.push(new SpaceShipType("Cyclope",new Cannon([225],[1]),40,90,320,45,"Fregate",80000,14000));
     
-    spaceShipType.push(new SpaceShipType("Minotaure",new Cannon([35,10,25],[4,2,1]),120,88,1200,70,"Destroyer",112000,28000));
+    spaceShipType.push(new SpaceShipType("Minotaure",new Cannon([35,10,25],[4,2,1]),120,88,1200,75,"Destroyer",112000,28000));
     spaceShipType.push(new SpaceShipType("Hydre",new Cannon([21],[20]),100,75,1050,86,"Destroyer",143000,28000));
     
     spaceShipType.push(new SpaceShipType("Cerb&egrave;re",new Cannon([25,50,6,175],[4,2,3,1]),135,80,1220,82,"Croiseur",208000,29000));
