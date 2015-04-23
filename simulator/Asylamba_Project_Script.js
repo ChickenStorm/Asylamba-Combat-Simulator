@@ -51,13 +51,13 @@ var attackerFlotte;
 var shipIdModification = -1; // -1 means none
 
 
-var version = "0.0.17.2";
+var version = "0.0.18.0";
 var userScriptLastVersion= "0.0.2";
 
 //----------------------------------------------------------------------------------------------
 //object declaration
 
-function SpaceShipType (name,cannon,defense,speed,hull,pev,typeName){
+function SpaceShipType (name,cannon,defense,speed,hull,pev,typeName,price,soute){
     this.name = name;
     this.cannon = cannon;
     this.defense = defense;
@@ -65,7 +65,8 @@ function SpaceShipType (name,cannon,defense,speed,hull,pev,typeName){
     this.maxHull = hull;
     this.pev = pev;
     this.typeName = typeName;
-    
+    this.price = price;
+    //soute c'est la valeur proposé au dev mais la vrait valeur est 250*pev
     
 }
 function Cannon(attack,number){

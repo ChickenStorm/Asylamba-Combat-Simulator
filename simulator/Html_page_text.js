@@ -40,7 +40,9 @@ htmlPage += " <div style='display: inline-block; position:absolute;' id='resultG
 htmlPage += " <div style='display: inline-block; position:absolute;' id='tech1'> </div> <div style='display: inline-block; position:absolute;' id='tech2'> </div>"
 
 
-htmlPage += "<div id='saveOptionDiv' style='display: inline-block; position:absolute;'><\div>"
+htmlPage += "<div id='saveOptionDiv' style='display: inline-block; position:absolute;'> </div>"
+
+htmlPage += "<div style='display: inline-block; position:absolute;' id='lostDiv'> </div> "
 // this is the html main part
 // may change <= unreadable
 

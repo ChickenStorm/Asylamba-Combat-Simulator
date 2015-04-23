@@ -119,7 +119,11 @@ function positionEllementHTMLPage(width){ // position les éllements sur la page
     
     $("generalInfos").innerHTML += "<p id='UserScriptMessage'>Vous n'avez pas encore l'user script ou il n'est pas &agrave; jour. T&eacute;l&eacute;chargez le <a href='https://github.com/ChickenStorm/Asylamba-Combat-Simulator/raw/master/userScript/simulator_user_script.user.js'>ici</a>.</p>";
     
+    $("lostDiv").style.width = "800px";
+    $("lostDiv").style.left = "20px";
+    $("lostDiv").style.top = "1550px";
     
+    drawLostDiv();
     //drawSaveOption();
     
     //" "
@@ -597,3 +601,22 @@ function drawAdvanceDetail(){//affiche plus de détail de la sim. est exécuter qu
     $("moreDetaileResult").innerHTML ="Flotte en d&eacute;fense <br>"+ displayTable(tempArrayFlotte1,styleArrayFlotte1) + "<br> flotte en attaque <br>"+displayTable(tempArrayFlotte2,styleArrayFlotte2);
 }
 
+function drawLostDiv(){
+    var arrayDraw = [["nom","nombre"]];
+    var arrayDrawStyle = [[" "," "]];
+    
+    for (var i=0; i<12;++i){
+        arrayDraw.push([spaceShipType[i].name,"<input type='number' id='lost" + i + "'  value=0>"]);
+        arrayDrawStyle.push(["",""]);
+    }
+    
+    $("lostDiv").innerHTML = displayTable(arrayDraw,arrayDrawStyle) +"<button onclick = 'computeLost()'> calculer les petes</button> <label id='labelLost'> 0 </label> "
+    
+}
+function computeLost(){
+    var lost =0;
+    for (var i=0; i<12;++i){
+        lost +=  spaceShipType[i].price* parseInt($("lost" + i).value)
+    }
+    $("labelLost").innerHTML = lost.toLocaleString();
+}
