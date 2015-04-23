@@ -610,7 +610,7 @@ function drawLostDiv(){
         arrayDrawStyle.push(["",""]);
     }
     
-    $("lostDiv").innerHTML = displayTable(arrayDraw,arrayDrawStyle) +"<button onclick = 'computeLost()'> calculer les petes</button> <label id='labelLost'> 0 </label> "
+    $("lostDiv").innerHTML = displayTable(arrayDraw,arrayDrawStyle) +"<button onclick = 'computeLost()'> calculer les pertes</button> <label id='labelLost'> 0 </label> "
     
 }
 function computeLost(){
