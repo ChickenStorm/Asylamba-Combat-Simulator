@@ -52,7 +52,7 @@ var shipIdModification = -1; // -1 means none
 
 
 var version = "0.0.18.0";
-var userScriptLastVersion= "0.0.2";
+var userScriptLastVersion= "0.0.3";
 
 //----------------------------------------------------------------------------------------------
 //object declaration

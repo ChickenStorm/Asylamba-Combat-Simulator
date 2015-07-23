@@ -5,11 +5,12 @@
 // @author       ChickenStorm
 // @match        http://game.asylamba.com/beta/fleet/view-spyreport*
 // @match        http://game.asylamba.com/s6/fleet/view-spyreport*
+// @match        http://game.asylamba.com/s7/fleet/view-spyreport*
 // @match        https://dl.dropboxusercontent.com/u/110049848/Projecet_script_public/*
 // @grant        none
 // ==/UserScript==
 
-var versionUserScript = "0.0.2";
+var versionUserScript = "0.0.3";
 
 var d = document.getElementsByTagName("span");
 function setOnClickFunction(decalage){
