@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         simulator user script
-// @version      0.0.2
+// @version      0.0.3
 // @description  simulator user script
 // @author       ChickenStorm
 // @match        http://game.asylamba.com/beta/fleet/view-spyreport*
