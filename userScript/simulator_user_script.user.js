@@ -91,7 +91,7 @@ function messageForSimulator(){
 
 var regExpUrlAsylambaBeta1 = new RegExp("(^http://game.asylamba.com/beta/fleet/view-spyreport*)");
 var regExpUrlAsylambaBeta2 = new RegExp("(^http://game.asylamba.com/s6/fleet/view-spyreport*)")
-var regExpUrlAsylambaBeta3 = new RegExp("(^http://game.asylamba.com/s6/fleet/view-spyreport*)") 
+var regExpUrlAsylambaBeta3 = new RegExp("(^http://game.asylamba.com/s7/fleet/view-spyreport*)") 
 var regExpUrlSimulator = new RegExp("^https://dl.dropboxusercontent.com/u/110049848/Projecet_script_public/*");
 
 if (regExpUrlAsylambaBeta1.test(window.location.href)) {
