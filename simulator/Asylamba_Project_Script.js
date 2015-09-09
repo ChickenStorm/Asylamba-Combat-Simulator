@@ -51,7 +51,7 @@ var attackerFlotte;
 var shipIdModification = -1; // -1 means none
 
 
-var version = "0.0.18.0";
+var version = "0.0.18.1";
 var userScriptLastVersion= "0.0.3.1";
 
 //----------------------------------------------------------------------------------------------
@@ -570,10 +570,10 @@ function setTech(flotte) {
             }
             else{
                 if (LISTE_OF_SHIP[i]=="Chasseur") {
-                    flotte.tech[LISTE_OF_SHIP[i]][LISTE_OF_TECH_TYPE[j]] = value*0.03;
+                    flotte.tech[LISTE_OF_SHIP[i]][LISTE_OF_TECH_TYPE[j]] = value*0.01;
                 }
                 else{
-                flotte.tech[LISTE_OF_SHIP[i]][LISTE_OF_TECH_TYPE[j]] = value*0.03;
+                flotte.tech[LISTE_OF_SHIP[i]][LISTE_OF_TECH_TYPE[j]] = value*0.01;
                 }
             }
         }

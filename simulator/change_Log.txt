@@ -111,3 +111,5 @@ correction des stats mino
 
 0.0.18.0
 calcule des pertes
+
+0.0.18.1 mise des bonnus à 1% par niveaux
