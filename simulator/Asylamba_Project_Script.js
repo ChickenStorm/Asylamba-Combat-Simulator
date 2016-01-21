@@ -1,6 +1,4 @@
 /*
-
-
 Copyright 2014-2015 ChickenStorm
 
 This file is part of Asylamba Combat Simulator.
@@ -17,19 +15,9 @@ This file is part of Asylamba Combat Simulator.
 
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-
 */
 
 /**
-
-
-
-
-
-
-
-
                                                /-----------/
                                               /           / 
                                              /     /-----/  
@@ -82,8 +70,8 @@ var attackerFlotte;
 var shipIdModification = -1; // -1 means none
 
 
-var version = "0.0.18.1";
-var userScriptLastVersion= "0.0.3.1";
+var version = "0.0.18.2";
+var userScriptLastVersion= "0.0.3.2";
 
 //----------------------------------------------------------------------------------------------
 //object declaration
@@ -162,7 +150,7 @@ function Tech(){
 function initSpaceShipType(){
     //alert(getDamage(20,50))
     spaceShipType.push(new SpaceShipType("P&eacute;gase",new Cannon([5],[1]),1,195,26,2,"Chasseur",2980,625));
-    spaceShipType.push(new SpaceShipType("Satyre",new Cannon([7],[1]),5,190,33,3,"Chasseur",3860,1500));
+    spaceShipType.push(new SpaceShipType("Satyre",new Cannon([7],[1]),5,185,30,3,"Chasseur",3860,1500));
     spaceShipType.push(new SpaceShipType("Chim&egrave;re",new Cannon([6],[2]),3,195,26,3,"Chasseur",4220,950));
     
     spaceShipType.push(new SpaceShipType("Sir&egrave;ne",new Cannon([20,2],[1,2]),6,190,65,5,"Corvette",7120,1900));
@@ -181,6 +169,7 @@ function initSpaceShipType(){
     spaceShipType.push(new SpaceShipType("Minotaure old (pre 14.04.2015)",new Cannon([35,10,25],[4,4,1]),120,88,1300,70,"Destroyer",112000,28000));
 
     
+    spaceShipType.push(new SpaceShipType("Satyre gamma 1",new Cannon([7],[1]),5,190,33,3,"Chasseur",3860,1500));
     spaceShipType.push(new SpaceShipType("P&eacute;gase beta I",new Cannon([5],[1]),2,200,26,2,"Chasseur"));
     spaceShipType.push(new SpaceShipType("Satyre beta I",new Cannon([6],[1]),5,195,32,3,"Chasseur"));
     spaceShipType.push(new SpaceShipType("Chim&egrave;re beta I",new Cannon([8],[2]),3,195,26,3,"Chasseur"));

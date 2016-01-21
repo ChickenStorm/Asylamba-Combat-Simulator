@@ -1,24 +1,3 @@
-/*
-Copyright 2015 ChickenStorm
-
- This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-
-*/
-
-
-
 // ==UserScript==
 // @name         simulator user script
 // @version      0.0.3.1
@@ -27,11 +6,12 @@ Copyright 2015 ChickenStorm
 // @match        http://game.asylamba.com/beta/fleet/view-spyreport*
 // @match        http://game.asylamba.com/s6/fleet/view-spyreport*
 // @match        http://game.asylamba.com/s7/fleet/view-spyreport*
+// @match        http://game.asylamba.com/s*/fleet/view-spyreport*
 // @match        https://dl.dropboxusercontent.com/u/110049848/Projecet_script_public/*
 // @grant        none
 // ==/UserScript==
 
-var versionUserScript = "0.0.3.1";
+var versionUserScript = "0.0.3.2";
 
 var d = document.getElementsByTagName("span");
 function setOnClickFunction(decalage){
@@ -113,6 +93,7 @@ function messageForSimulator(){
 var regExpUrlAsylambaBeta1 = new RegExp("(^http://game.asylamba.com/beta/fleet/view-spyreport*)");
 var regExpUrlAsylambaBeta2 = new RegExp("(^http://game.asylamba.com/s6/fleet/view-spyreport*)")
 var regExpUrlAsylambaBeta3 = new RegExp("(^http://game.asylamba.com/s7/fleet/view-spyreport*)") 
+var regExpUrlAsylambaGammaS = new RegExp("(^http://game.asylamba.com/s*/fleet/view-spyreport*)") 
 var regExpUrlSimulator = new RegExp("^https://dl.dropboxusercontent.com/u/110049848/Projecet_script_public/*");
 
 if (regExpUrlAsylambaBeta1.test(window.location.href)) {
@@ -130,5 +111,8 @@ else if (regExpUrlSimulator.test(window.location.href)) {
     //messageForSimulator();
     setTimeout(messageForSimulator,0);
     
+}
+else if(regExpUrlAsylambaGammaS.test(window.location.href)){
+    setOnClickFunction(0);
 }
 
