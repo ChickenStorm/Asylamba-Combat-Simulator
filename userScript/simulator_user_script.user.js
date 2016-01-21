@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         simulator user script
-// @version      0.0.3.1
+// @version      0.0.3.2
 // @description  simulator user script
 // @author       ChickenStorm
 // @match        http://game.asylamba.com/beta/fleet/view-spyreport*
@@ -8,6 +8,7 @@
 // @match        http://game.asylamba.com/s7/fleet/view-spyreport*
 // @match        http://game.asylamba.com/s*/fleet/view-spyreport*
 // @match        https://dl.dropboxusercontent.com/u/110049848/Projecet_script_public/*
+// @updateURL	 https://github.com/ChickenStorm/Asylamba-Combat-Simulator/raw/master/userScript/simulator_user_script.user.js
 // @grant        none
 // ==/UserScript==
 
